@@ -579,6 +579,18 @@
                         .then(data => setAllNews(data.filter(n => n.active !== false)))
                         .catch(() => {});
                 }, []);
+
+                // Авто-приветствие голосовым AI через 60 секунд (один раз за сессию)
+                useEffect(() => {
+                    if (sessionStorage.getItem('smit_voice_greeted')) return;
+                    const timer = setTimeout(() => {
+                        if (window.openAIWidget) {
+                            sessionStorage.setItem('smit_voice_greeted', '1');
+                            window.openAIWidget(null, { voice: true, autoConnect: true });
+                        }
+                    }, 60000);
+                    return () => clearTimeout(timer);
+                }, []);
                 const [touchStart, setTouchStart] = useState(null);
                 const [touchEnd, setTouchEnd] = useState(null);
                 const minSwipeDistance = 50;
