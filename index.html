@@ -1,12 +1,11 @@
-<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="SMIT — Интернет-провайдер будущего">
-    <meta property="og:description" content="Стабильный Интернет в Волгоградской области. Бесплатное подключение квартир и технология GPON в частный сектор.">
+    <meta property="og:title" content="СМИТ — Интернет-провайдер будущего">
+    <meta property="og:description" content="Надёжный Интернет в Волгоградской области. Подключаем квартиры и частный сектор — оптика ГПОН и беспроводные решения.">
     <meta property="og:image" content="https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/ogimage.jpg">
     <meta property="og:url" content="https://smit34.ru">
     <meta property="og:type" content="website">
@@ -14,11 +13,11 @@
     
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SMIT — Интернет-провайдер будущего">
-    <meta name="twitter:description" content="Стабильный Интернет в Волгоградской области. Подключитесь сегодня!">
+    <meta name="twitter:title" content="СМИТ — Интернет-провайдер будущего">
+    <meta name="twitter:description" content="Надёжный Интернет в Волгоградской области. Подключитесь сегодня!">
     <meta name="twitter:image" content="https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/ogimage.jpg">
 
-    <title>SMIT — Интернет-провайдер будущего</title>
+    <title>СМИТ — Интернет-провайдер будущего</title>
     
     <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -144,6 +143,30 @@
         @keyframes slideInFromRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
         .glass-text { text-shadow: 0 2px 10px rgba(16, 185, 129, 0.1); }
+
+        /* Logo hover animation */
+        .logo-hover {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
+        }
+        .logo-hover:hover {
+            transform: scale(1.05);
+        }
+        .logo-hover:hover .logo-icon {
+            transform: rotate(-8deg) scale(1.1);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35);
+        }
+        .logo-hover:hover .logo-text {
+            background: linear-gradient(135deg, #10b981, #14b8a6, #0d9488);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo-icon {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+        }
+        .logo-text {
+            transition: all 0.3s ease;
+        }
         
         /* Кастомный скроллбар для модальных окон */
         .custom-scroll::-webkit-scrollbar { width: 6px; }
@@ -176,6 +199,9 @@
     
     <div id="root"></div>
     <div id="error-display"></div>
+
+    <!-- AI Widget (отдельный файл) -->
+    <script type="text/babel" data-presets="env,react" src="aida-widget.js?v=20260303b"></script>
 
     <script type="text/babel" data-presets="env,react">
         try {
@@ -240,6 +266,7 @@
                 Mic: (p) => <Icon {...p}><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></Icon>,
                 Square: (p) => <Icon {...p}><rect width="18" height="18" x="3" y="3" rx="2"/></Icon>,
                 Loader2: (p) => <Icon {...p} className={`${p.className || ''} animate-spin`}><path d="M21 12a9 9 0 1 1-6.219-8.56"/></Icon>,
+                ClipboardList: (p) => <Icon {...p}><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></Icon>,
                 Settings: (p) => <Icon {...p}><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></Icon>,
                 Moon: (p) => <Icon {...p}><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></Icon>,
                 Sun: (p) => <Icon {...p}><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></Icon>
@@ -251,8 +278,11 @@
                 MapPin, Clock, Mail, ChevronRight, ChevronLeft, ChevronDown, Server,
                 MousePointer, ArrowRight, FileText,
                 Tv, Cpu, HardDrive, Bot, File, Cookie, Settings, Moon, Sun,
-                Mic, Square, Loader2
+                Mic, Square, Loader2, ClipboardList
             } = Icons;
+
+            // Expose icons for external widget script
+            window._SmitIcons = Icons;
 
             // --- 3D ФОН (CANVAS) ---
             const GeometricBackground = ({ isDark }) => {
@@ -514,690 +544,8 @@
                 });
             }
 
-            // --- ГОЛОСОВОЙ AI АССИСТЕНТ ---
-            const GEMINI_API_KEY = 'AIzaSyDlnPbUWTe-ZVYiaTrZ7zayE7QMP4-Dha4';
-
-            // Audio Utils
-            function floatTo16BitPCM(input) {
-                const output = new Int16Array(input.length);
-                for (let i = 0; i < input.length; i++) {
-                    const s = Math.max(-1, Math.min(1, input[i]));
-                    output[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
-                }
-                return new Uint8Array(output.buffer);
-            }
-
-            function base64Encode(bytes) {
-                let binary = '';
-                for (let i = 0; i < bytes.byteLength; i++) {
-                    binary += String.fromCharCode(bytes[i]);
-                }
-                return btoa(binary);
-            }
-
-            function base64Decode(base64) {
-                const binaryString = atob(base64);
-                const bytes = new Uint8Array(binaryString.length);
-                for (let i = 0; i < binaryString.length; i++) {
-                    bytes[i] = binaryString.charCodeAt(i);
-                }
-                return bytes;
-            }
-
-            async function decodeAudioData(data, ctx, sampleRate = 24000, numChannels = 1) {
-                const dataInt16 = new Int16Array(data.buffer);
-                const frameCount = dataInt16.length / numChannels;
-                const buffer = ctx.createBuffer(numChannels, frameCount, sampleRate);
-                for (let channel = 0; channel < numChannels; channel++) {
-                    const channelData = buffer.getChannelData(channel);
-                    for (let i = 0; i < frameCount; i++) {
-                        channelData[i] = dataInt16[i * numChannels + channel] / 32768.0;
-                    }
-                }
-                return buffer;
-            }
-
-            const INITIAL_SUGGESTIONS = [
-                'Хочу подключить интернет 🌐',
-                'Какие тарифы есть? 📋',
-                'Уже клиент, есть проблема 🔧',
-                'Цена подключения 💰',
-            ];
-
-            function AIWidget() {
-                // Chat state
-                const [isOpen, setIsOpen] = useState(false);
-                const [mode, setMode] = useState('chat');
-                const [messages, setMessages] = useState([{role:'bot', text:'Привет! Я AIDA — ваш AI-ассистент SmIT. Помогу выбрать тариф, расскажу об услугах или оформлю заявку на подключение. Чем могу помочь?'}]);
-                const [input, setInput] = useState('');
-                const [isLoading, setIsLoading] = useState(false);
-                const [suggestions, setSuggestions] = useState(INITIAL_SUGGESTIONS);
-                const messagesEndRef = useRef(null);
-                const [sessionId] = useState(() => {
-                    const stored = localStorage.getItem('smit_session_id');
-                    if (stored) return stored;
-                    const id = `widget_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
-                    localStorage.setItem('smit_session_id', id);
-                    return id;
-                });
-
-                // Voice state
-                const [isActive, setIsActive] = useState(false);
-                const [status, setStatus] = useState('idle');
-                const [isAgentSpeaking, setIsAgentSpeaking] = useState(false);
-                const [error, setError] = useState(null);
-
-                const audioContextRef = useRef(null);
-                const inputContextRef = useRef(null);
-                const nextStartTimeRef = useRef(0);
-                const sourcesRef = useRef(new Set());
-                const processorRef = useRef(null);
-                const streamRef = useRef(null);
-                const sessionRef = useRef(null);
-                const activeConnectionIdRef = useRef(null);
-                const shouldReconnectRef = useRef(false);
-                const reconnectAttemptsRef = useRef(0);
-                const reconnectTimeoutRef = useRef(null);
-                const voiceTranscriptRef = useRef([]);       // [{role, text}] — полный транскрипт сессии
-                const voiceCurrentBotRef = useRef('');       // текст текущей реплики бота (накапливается)
-                const userInputAccumulatorRef = useRef('');  // накапливает слова пользователя в одном пузырьке
-
-                const cleanupResources = () => {
-                    activeConnectionIdRef.current = null;
-                    if (processorRef.current) { processorRef.current.disconnect(); processorRef.current = null; }
-                    if (streamRef.current) { streamRef.current.getTracks().forEach(t => t.stop()); streamRef.current = null; }
-                    if (inputContextRef.current) { inputContextRef.current.close(); inputContextRef.current = null; }
-                    if (audioContextRef.current) { audioContextRef.current.close(); audioContextRef.current = null; }
-                    if (sessionRef.current) { sessionRef.current = null; }
-                    sourcesRef.current.forEach(s => s.stop());
-                    sourcesRef.current.clear();
-                    setIsAgentSpeaking(false);
-                    nextStartTimeRef.current = 0;
-                };
-
-                const stop = () => {
-                    shouldReconnectRef.current = false;
-                    reconnectAttemptsRef.current = 0;
-                    if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current);
-
-                    // Relay в AIDA для создания лида — пошаговый диалог
-                    const transcript = voiceTranscriptRef.current;
-                    if (transcript.length > 0) {
-                        const botMsgs = transcript.filter(m => m.role === 'bot');
-                        const confirmMsg = botMsgs.slice().reverse().find(m => {
-                            const t = m.text.toLowerCase();
-                            return (t.includes('верн') || t.includes('данные') || t.includes('повтор')) &&
-                                   (t.includes('тариф') || t.includes('номер') || t.includes('телефон') || t.includes('адрес') || t.includes('имя'));
-                        }) || (botMsgs.length >= 2 ? botMsgs[botMsgs.length - 2] : botMsgs[botMsgs.length - 1]);
-
-                        if (confirmMsg) {
-                            const raw = confirmMsg.text.replace(/\s+/g, ' ').trim();
-
-                            const nameM  = raw.match(/Имя:\s*([А-ЯЁа-яё][а-яё]+)/i)
-                                        || raw.match(/(?:зовут\s*|заявки:\s*)([А-ЯЁа-яё][а-яё]+)/i)
-                                        || raw.match(/(?:\d[\d\s\-]+,\s*)([А-ЯЁа-яё][а-яё]{2,})/i);
-                            // Телефон: стандартный РФ формат с/без разделителей (8xxxxxxxxxx или 8 xxx xxx xx xx)
-                            const phoneM = raw.match(/Телефон:\s*(\+?[\d][\d\s\-\(\)]{8,14})/i)
-                                        || raw.match(/(\+?[78][\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2})/);
-                            const addrM  = raw.match(/Адрес:\s*(.+?)(?:,\s*(?:Тариф|Телефон|Имя)|$)/i)
-                                        || raw.match(/адрес[:\s]+(.+?)(?:,?\s*(?:тариф|телефон|номер|всё|все|подтверж))/i);
-                            const tariffM = raw.match(/Тариф:\s*[«"]?([^»".,\n]+)/i)
-                                        || raw.match(/«([^»]+)»/);
-
-                            const name   = nameM   ? nameM[1].trim()   : '';
-                            const phone  = phoneM  ? phoneM[1].trim()  : '';
-                            const addr   = addrM   ? addrM[1].trim()   : '';
-                            const tariff = tariffM ? tariffM[1].trim() : '';
-
-                            console.log('[AIDA relay] parsed:', { name, phone, addr, tariff });
-
-                            // Умный relay — отвечает по контексту ответов AIDA
-                            const relaySessionId = `widget_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
-                            const runRelay = async () => {
-                                const post = async (msg) => {
-                                    const r = await fetch('https://aida.smit34.ru/chat', {
-                                        method: 'POST',
-                                        headers: { 'Content-Type': 'application/json' },
-                                        body: JSON.stringify({ session_id: relaySessionId, message: msg })
-                                    });
-                                    return (await r.json()).response || '';
-                                };
-
-                                // Флаги что уже отправлено в этой сессии
-                                let sentName = false, sentPhone = false, sentAddr = false, sentTariff = false;
-
-                                const nextMsg = (resp) => {
-                                    const r = resp.toLowerCase();
-                                    // Стоп ТОЛЬКО если телефон уже был отправлен
-                                    if (sentPhone && (r.includes('принят') || r.includes('создан') || r.includes('зарегистрир'))) return null;
-                                    // Имя + телефон — комбинируем чтобы телефон не потерялся
-                                    if (!sentName && (r.includes('зовут') || r.includes('обращаться') || r.includes('ваше имя'))) {
-                                        sentName = true; sentPhone = true;
-                                        return phone ? `${name || 'Клиент'}. Мой телефон: ${phone}` : (name || 'Клиент');
-                                    }
-                                    // Телефон — если AIDA отдельно спрашивает
-                                    if (!sentPhone && (r.includes('телефон') || r.includes('номер'))) {
-                                        sentPhone = true; return phone || '';
-                                    }
-                                    // Адрес
-                                    if (!sentAddr && (r.includes('адрес') || r.includes('проживаете') || (r.includes('где') && r.includes('подключ')))) {
-                                        sentAddr = true; return addr || 'Волгоград';
-                                    }
-                                    // Тариф / назначение интернета
-                                    if (!sentTariff && (r.includes('тариф') || r.includes('используете') || r.includes('задачи') || r.includes('нужен интернет'))) {
-                                        sentTariff = true; return tariff ? `Хочу тариф «${tariff}»` : 'Самый популярный';
-                                    }
-                                    if (r.includes('время') || r.includes('удобно') || r.includes('когда')) {
-                                        return 'В любое рабочее время';
-                                    }
-                                    if (r.includes('верно') || r.includes('правильн') || r.includes('данные')) {
-                                        return 'Да, всё верно';
-                                    }
-                                    // Адрес подтверждён — явно просим оформить заявку
-                                    if (sentAddr && sentPhone && (r.includes('возможность подключения') || r.includes('доступно') || r.includes('подключим'))) {
-                                        return 'Отлично! Пожалуйста, оформите заявку на подключение интернета.';
-                                    }
-                                    // Допродажи — отклоняем и просим заявку
-                                    if (r.includes('роутер') || r.includes('wi-fi') || r.includes('wifi') ||
-                                        r.includes('видеонаблюдени') || r.includes('камер') ||
-                                        r.includes('постоянный ip') || r.includes('ip-адрес') ||
-                                        r.includes('предлагаю вам опцию') || r.includes('дополнительн')) {
-                                        return 'Нет, спасибо. Оформите только заявку на подключение интернета.';
-                                    }
-                                    // Страховка: телефон ещё не отправлен
-                                    if (!sentPhone && phone) { sentPhone = true; return phone; }
-                                    return 'Да, оформите заявку на подключение';
-                                };
-
-                                let resp = await post('Хочу подключить интернет');
-                                console.log('[AIDA relay] r0 →', resp.slice(0,100));
-
-                                for (let t = 0; t < 14; t++) {
-                                    const msg = nextMsg(resp);
-                                    if (!msg) { console.log('[AIDA relay] done ✓'); break; }
-                                    resp = await post(msg);
-                                    console.log(`[AIDA relay] r${t+1} (${msg.slice(0,25)}) →`, resp.slice(0,100));
-                                }
-                            };
-                            runRelay().catch(e => console.error('[AIDA relay] error:', e));
-                        }
-                    }
-
-                    // Сбросить накопители
-                    const hadConversation = transcript.length > 0;
-                    voiceTranscriptRef.current = [];
-                    voiceCurrentBotRef.current = '';
-                    userInputAccumulatorRef.current = '';
-
-                    // Переключиться в чат если был разговор
-                    if (hadConversation) {
-                        setMode('chat');
-                        setMessages(prev => [...prev, {
-                            role: 'bot',
-                            text: 'Голосовой разговор завершён. Если хотите продолжить или уточнить детали — напишите мне!'
-                        }]);
-                        setSuggestions(['Оформить заявку 📝', 'Уточнить тариф 📋', 'Позвонить сейчас 📞']);
-                    }
-
-                    cleanupResources();
-                    setIsActive(false);
-                    setStatus('idle');
-                };
-
-                const connect = async () => {
-                    // Ждём загрузки SDK (до 5 секунд)
-                    let attempts = 0;
-                    while (!window.GoogleGenAI && attempts < 50) {
-                        await new Promise(r => setTimeout(r, 100));
-                        attempts++;
-                    }
-
-                    if (!window.GoogleGenAI) {
-                        setError('SDK не загружен. Обновите страницу.');
-                        setStatus('error');
-                        return;
-                    }
-
-                    if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current);
-                    const connectionId = Date.now().toString();
-                    activeConnectionIdRef.current = connectionId;
-
-                    setStatus('connecting');
-                    setIsActive(true);
-                    setError(null);
-                    shouldReconnectRef.current = false; // Отключаем авто-реконнект
-
-                    try {
-                        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-                        audioContextRef.current = new AudioContextClass({ sampleRate: 24000 });
-                        inputContextRef.current = new AudioContextClass({ sampleRate: 16000 });
-
-                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                        streamRef.current = stream;
-                        if (activeConnectionIdRef.current !== connectionId) return;
-
-                        const ai = new window.GoogleGenAI({ apiKey: GEMINI_API_KEY });
-
-                        const config = {
-                            model: 'gemini-2.5-flash-native-audio-preview-12-2025',
-                            config: {
-                                responseModalities: [window.GeminiModality.AUDIO],
-                                speechConfig: {
-                                    voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Zephyr' } },
-                                },
-                                inputAudioTranscription: {},
-                                outputAudioTranscription: {},
-                                systemInstruction: `Ты — AIDA, голосовой AI-ассистент интернет-провайдера СМИТ (Smit34.ru) в Волгоградской области.
-
-ТВОЯ ЗАДАЧА: помогать клиентам с выбором тарифа, консультировать по услугам, отвечать на вопросы.
-
-ТАРИФЫ (ИСПОЛЬЗУЙ ТОЛЬКО ЭТИ!):
-- «Это просто» — 25 Мбит/с, 869 рублей в месяц
-- «Для тебя» — 40 Мбит/с, 749 рублей в месяц
-- «Smit» — 100 Мбит/с, 949 рублей в месяц (рекомендуемый)
-- «Без границ» — 150 Мбит/с, 1199 рублей в месяц
-
-ПОДКЛЮЧЕНИЕ: 10 000 рублей (единоразово). Роутер покупается отдельно.
-
-ДОПОЛНИТЕЛЬНЫЕ УСЛУГИ:
-- Видеонаблюдение: от 1 камеры
-- Постоянный IP: 150 рублей в месяц
-
-КОНТАКТЫ:
-- Телефон поддержки: 55-35-59
-- Сайт: smit34.ru
-- Telegram: @smitsupport_bot
-
-ПРАВИЛА ОБЩЕНИЯ:
-- Говори на русском языке
-- Будь дружелюбным и профессиональным
-- Отвечай кратко и по делу
-- Сначала узнай имя клиента и его потребности
-- Рекомендуй подходящий тариф исходя из потребностей
-- Если клиент хочет подключиться — обязательно узнай: имя, номер телефона, адрес подключения
-- Подтверди детали заявки голосом СТРОГО в формате: "Имя: [имя], Телефон: [телефон], Адрес: [адрес], Тариф: «[тариф]». Всё верно?"`,
-                            },
-                        };
-
-                        let sessionPromise;
-
-                        const handleConnectionDrop = (errorMsg) => {
-                            if (activeConnectionIdRef.current !== connectionId && activeConnectionIdRef.current !== null) return;
-                            cleanupResources();
-                            setStatus('error');
-                            setError(errorMsg || 'Соединение прервано');
-                            setIsActive(false);
-                        };
-
-                        const callbacks = {
-                            onopen: () => {
-                                if (activeConnectionIdRef.current !== connectionId) return;
-                                reconnectAttemptsRef.current = 0;
-                                setStatus('connected');
-                                if (!inputContextRef.current || !streamRef.current) return;
-
-                                const source = inputContextRef.current.createMediaStreamSource(streamRef.current);
-                                const processor = inputContextRef.current.createScriptProcessor(4096, 1, 1);
-                                processorRef.current = processor;
-
-                                processor.onaudioprocess = (e) => {
-                                    if (activeConnectionIdRef.current !== connectionId) return;
-                                    const inputData = e.inputBuffer.getChannelData(0);
-                                    const pcmData = floatTo16BitPCM(inputData);
-                                    const base64Data = base64Encode(pcmData);
-                                    sessionPromise.then(session => {
-                                        if (activeConnectionIdRef.current !== connectionId) return;
-                                        try {
-                                            session.sendRealtimeInput({ media: { mimeType: 'audio/pcm;rate=16000', data: base64Data } });
-                                        } catch (err) {}
-                                    });
-                                };
-
-                                source.connect(processor);
-                                processor.connect(inputContextRef.current.destination);
-                            },
-                            onmessage: async (message) => {
-                                if (activeConnectionIdRef.current !== connectionId) return;
-                                if (message.serverContent?.interrupted) {
-                                    sourcesRef.current.forEach(s => { s.stop(); sourcesRef.current.delete(s); });
-                                    nextStartTimeRef.current = 0;
-                                    setIsAgentSpeaking(false);
-                                    return;
-                                }
-
-                                // User speech → накапливаем фрагменты в ОДИН пузырёк
-                                const inputText = message.serverContent?.inputTranscription?.text;
-                                if (inputText?.trim()) {
-                                    userInputAccumulatorRef.current += (userInputAccumulatorRef.current ? ' ' : '') + inputText.trim();
-                                    const accText = userInputAccumulatorRef.current;
-                                    setMessages(prev => {
-                                        const last = prev[prev.length - 1];
-                                        if (last && last.role === 'user' && last.text.startsWith('🎤')) {
-                                            return [...prev.slice(0, -1), { role: 'user', text: `🎤 ${accText}` }];
-                                        }
-                                        return [...prev, { role: 'user', text: `🎤 ${accText}` }];
-                                    });
-                                }
-
-                                // AI output transcription — накапливаем до turnComplete
-                                const outputText = message.serverContent?.outputTranscription?.text;
-                                if (outputText?.trim()) {
-                                    voiceCurrentBotRef.current += outputText;
-                                }
-
-                                // On turn complete — фиксируем реплики в transcript (без relay)
-                                if (message.serverContent?.turnComplete) {
-                                    if (userInputAccumulatorRef.current) {
-                                        const userText = userInputAccumulatorRef.current;
-                                        voiceTranscriptRef.current.push({ role: 'user', text: userText });
-                                        userInputAccumulatorRef.current = '';
-                                    }
-                                    if (voiceCurrentBotRef.current.trim()) {
-                                        const botText = voiceCurrentBotRef.current.trim();
-                                        voiceTranscriptRef.current.push({ role: 'bot', text: botText });
-                                        setMessages(prev => [...prev, { role: 'bot', text: `🔊 ${botText}` }]);
-                                        voiceCurrentBotRef.current = '';
-                                    }
-                                }
-
-                                // Play audio as before
-                                const base64Audio = message.serverContent?.modelTurn?.parts?.find(p => p.inlineData)?.inlineData?.data;
-                                if (base64Audio && audioContextRef.current) {
-                                    setIsAgentSpeaking(true);
-                                    const audioCtx = audioContextRef.current;
-                                    const startTime = Math.max(nextStartTimeRef.current, audioCtx.currentTime);
-                                    nextStartTimeRef.current = startTime;
-                                    const pcmData = base64Decode(base64Audio);
-                                    const audioBuffer = await decodeAudioData(pcmData, audioCtx, 24000, 1);
-                                    const source = audioCtx.createBufferSource();
-                                    source.buffer = audioBuffer;
-                                    source.connect(audioCtx.destination);
-                                    source.onended = () => {
-                                        sourcesRef.current.delete(source);
-                                        if (sourcesRef.current.size === 0) setIsAgentSpeaking(false);
-                                    };
-                                    source.start(startTime);
-                                    nextStartTimeRef.current += audioBuffer.duration;
-                                    sourcesRef.current.add(source);
-                                }
-                            },
-                            onclose: (e) => {
-                                console.warn('[Gemini] onclose', e);
-                                handleConnectionDrop('Сессия завершена');
-                            },
-                            onerror: (e) => {
-                                console.error('[Gemini] onerror', e);
-                                const msg = e?.message || e?.code || JSON.stringify(e) || 'unknown';
-                                handleConnectionDrop('Ошибка: ' + msg.slice(0, 80));
-                            }
-                        };
-
-                        sessionPromise = ai.live.connect({ ...config, callbacks });
-                        sessionPromise.then(session => {
-                            if (activeConnectionIdRef.current === connectionId) {
-                                sessionRef.current = session;
-                                // Триггер — AI приветствует первым
-                                try {
-                                    session.sendClientContent({
-                                        turns: [{ role: 'user', parts: [{ text: '[НАЧАЛО СЕССИИ] Поздоровайся с клиентом и спроси чем можешь помочь.' }] }],
-                                        turnComplete: true
-                                    });
-                                } catch(e) {}
-                            }
-                        }).catch(e => {
-                            const msg = e?.message || e?.statusText || String(e);
-                            console.error('[Gemini] connect error:', msg, e);
-                            handleConnectionDrop('Не удалось подключиться: ' + msg.slice(0, 80));
-                        });
-
-                    } catch (err) {
-                        console.error('Failed to connect:', err);
-                        cleanupResources();
-                        setIsActive(false);
-                        setStatus('error');
-                        setError(err.name === 'NotAllowedError' ? 'Нет доступа к микрофону' : 'Ошибка: ' + err.message);
-                    }
-                };
-
-                useEffect(() => {
-                    return () => { shouldReconnectRef.current = false; cleanupResources(); };
-                }, []);
-
-                // Pending message ref — used when widget is opened with a preset message
-                const pendingMessageRef = useRef(null);
-
-                // Expose open function globally (accepts optional message)
-                useEffect(() => {
-                    window.openAIWidget = (message) => {
-                        setIsOpen(true);
-                        setMode('chat');
-                        if (message) pendingMessageRef.current = message;
-                    };
-                    return () => { delete window.openAIWidget; };
-                }, []);
-
-                // Send pending message once widget is open and not loading
-                useEffect(() => {
-                    if (isOpen && pendingMessageRef.current && !isLoading) {
-                        const msg = pendingMessageRef.current;
-                        pendingMessageRef.current = null;
-                        sendMessage(msg);
-                    }
-                }, [isOpen]);
-
-                // Auto-scroll to latest message
-                useEffect(() => {
-                    if (messagesEndRef.current) messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
-                }, [messages, isLoading]);
-
-                // Parse suggestion buttons from backend response
-                const parseResponse = (text) => {
-                    const buttons = [];
-                    const cleanText = text.replace(/💡[^\n]*/g, (match) => {
-                        const found = [...match.matchAll(/"([^"]+)"/g)].map(m => m[1]);
-                        buttons.push(...found);
-                        return '';
-                    }).trim();
-                    return { cleanText, buttons };
-                };
-
-                // Send chat message to backend
-                const sendMessage = async (text) => {
-                    if (!text.trim() || isLoading) return;
-                    setMessages(prev => [...prev, { role: 'user', text }]);
-                    setInput('');
-                    setIsLoading(true);
-                    setSuggestions([]);
-                    try {
-                        const res = await fetch('https://aida.smit34.ru/chat', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ session_id: sessionId, message: text })
-                        });
-                        const data = await res.json();
-                        const { cleanText, buttons } = parseResponse(data.response);
-                        setMessages(prev => [...prev, { role: 'bot', text: cleanText }]);
-                        setSuggestions(buttons.length > 0 ? buttons : []);
-                    } catch {
-                        setMessages(prev => [...prev, { role: 'bot', text: 'Ошибка соединения. Попробуйте ещё раз.' }]);
-                    } finally {
-                        setIsLoading(false);
-                    }
-                };
-
-                // Microphone dictation for chat input
-                const startDictation = () => {
-                    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-                    if (!SR) return;
-                    const rec = new SR();
-                    rec.lang = 'ru-RU';
-                    rec.onresult = e => setInput(e.results[0][0].transcript);
-                    rec.start();
-                };
-
-                return (
-                    <div className="ai-widget-outer fixed bottom-6 right-6 z-[50] flex flex-col items-end pointer-events-none">
-                        {/* Widget Panel */}
-                        <div className={`pointer-events-auto mb-4 backdrop-blur-xl bg-white/80 dark:bg-slate-900/85 border border-white/30 dark:border-slate-700/50 shadow-[0_20px_60px_rgba(16,185,129,0.25)] overflow-hidden transition-all duration-500 flex flex-col w-80 sm:w-96 rounded-3xl origin-bottom-right
-                            ${isOpen ? 'opacity-100 scale-100 translate-y-0 ai-widget-open' : 'opacity-0 scale-90 translate-y-10 pointer-events-none'}`}
-                            style={{ height: isOpen ? '580px' : '0' }}
-                            id="ai-widget-panel">
-
-                            {/* Header */}
-                            <div className="bg-emerald-600/90 dark:bg-emerald-800/90 text-white px-4 py-3 flex items-center justify-between flex-shrink-0">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center">
-                                        <Bot size={18} />
-                                    </div>
-                                    <div>
-                                        <p className="font-bold text-sm">AIDA</p>
-                                        <div className="flex items-center gap-1.5">
-                                            <div className="w-1.5 h-1.5 bg-emerald-300 rounded-full animate-pulse"></div>
-                                            <p className="text-xs text-emerald-100">онлайн</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <button onClick={() => setMode('voice')} title="Голосовой режим" className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${mode === 'voice' ? 'bg-white/30' : 'bg-white/10 hover:bg-white/20'}`}>
-                                        <Phone size={14} />
-                                    </button>
-                                    <button onClick={() => { if (mode === 'voice') stop(); setIsOpen(false); }} className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
-                                        <X size={16} />
-                                    </button>
-                                </div>
-                            </div>
-
-                            {/* Mode Tabs */}
-                            <div className="flex border-b border-slate-200/50 dark:border-slate-700/50 flex-shrink-0 bg-white/50 dark:bg-slate-900/50">
-                                <button onClick={() => setMode('chat')} className={`flex-1 py-2 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors ${mode === 'chat' ? 'text-emerald-600 dark:text-emerald-400 border-b-2 border-emerald-500 bg-emerald-50/50 dark:bg-emerald-900/20' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}`}>
-                                    <Bot size={13} /> Чат
-                                </button>
-                                <button onClick={() => setMode('voice')} className={`flex-1 py-2 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors ${mode === 'voice' ? 'text-emerald-600 dark:text-emerald-400 border-b-2 border-emerald-500 bg-emerald-50/50 dark:bg-emerald-900/20' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}`}>
-                                    <Mic size={13} /> Голос
-                                </button>
-                            </div>
-
-                            {/* Chat Mode */}
-                            {mode === 'chat' && (
-                                <>
-                                    <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
-                                        {messages.map((msg, i) => (
-                                            <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                                <div className={`max-w-[82%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${msg.role === 'user' ? 'bg-emerald-500 text-white rounded-br-sm' : 'bg-white/70 dark:bg-slate-800/70 border border-white/50 dark:border-slate-700/50 text-slate-800 dark:text-slate-200 rounded-bl-sm'}`}>
-                                                    {msg.text}
-                                                </div>
-                                            </div>
-                                        ))}
-                                        {isLoading && (
-                                            <div className="flex justify-start">
-                                                <div className="bg-white/70 dark:bg-slate-800/70 border border-white/50 dark:border-slate-700/50 px-4 py-3 rounded-2xl rounded-bl-sm">
-                                                    <div className="flex gap-1.5 items-center">
-                                                        <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{animationDelay:'0ms'}}></div>
-                                                        <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{animationDelay:'150ms'}}></div>
-                                                        <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{animationDelay:'300ms'}}></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-                                        <div ref={messagesEndRef} />
-                                    </div>
-
-                                    {suggestions.length > 0 && (
-                                        <div className="px-3 py-2 flex gap-2 overflow-x-auto flex-shrink-0 border-t border-slate-200/30 dark:border-slate-700/30" style={{scrollbarWidth:'none'}}>
-                                            {suggestions.map((s, i) => (
-                                                <button key={i} onClick={() => sendMessage(s)}
-                                                    className="whitespace-nowrap text-xs px-3 py-1.5 rounded-full bg-white/60 dark:bg-slate-700/60 border border-emerald-200/50 dark:border-emerald-700/50 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 text-slate-700 dark:text-slate-300 transition-colors flex-shrink-0">
-                                                    {s}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    )}
-
-                                    <div className="px-3 py-3 border-t border-slate-200/50 dark:border-slate-700/50 flex gap-2 items-center flex-shrink-0 bg-white/50 dark:bg-slate-900/50">
-                                        <input value={input} onChange={e => setInput(e.target.value)}
-                                            onKeyDown={e => e.key === 'Enter' && sendMessage(input)}
-                                            placeholder="Задайте вопрос..."
-                                            className="flex-1 bg-white/80 dark:bg-slate-800/80 border border-slate-200/50 dark:border-slate-700/50 rounded-xl px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all" />
-                                        <button onClick={() => sendMessage(input)} disabled={!input.trim() || isLoading}
-                                            className="w-9 h-9 rounded-xl bg-emerald-500 hover:bg-emerald-600 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-white transition-colors flex-shrink-0">
-                                            <ArrowRight size={15} />
-                                        </button>
-                                    </div>
-                                </>
-                            )}
-
-                            {/* Voice Mode */}
-                            {mode === 'voice' && (
-                                <div className="flex-1 flex flex-col min-h-0">
-                                    {/* Live transcript — same messages as chat */}
-                                    {status === 'connected' || messages.some(m => m.text?.startsWith('🎤') || m.text?.startsWith('🔊')) ? (
-                                        <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
-                                            {messages.filter(m => m.text?.startsWith('🎤') || m.text?.startsWith('🔊')).map((msg, i) => (
-                                                <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                                    <div className={`max-w-[82%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${msg.role === 'user' ? 'bg-emerald-500 text-white rounded-br-sm' : 'bg-white/70 dark:bg-slate-800/70 border border-white/50 dark:border-slate-700/50 text-slate-800 dark:text-slate-200 rounded-bl-sm'}`}>
-                                                        {msg.text}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                            <div ref={messagesEndRef} />
-                                        </div>
-                                    ) : (
-                                        <div className="flex-1 flex items-center justify-center">
-                                            {status === 'idle' && <span className="text-slate-400 text-sm text-center px-6">Нажмите «Начать» — разговор появится здесь</span>}
-                                            {status === 'error' && (
-                                                <div className="flex flex-col items-center gap-1 text-red-500 px-4 text-center">
-                                                    <span className="text-xs font-bold uppercase">Ошибка</span>
-                                                    <span className="text-sm">{error}</span>
-                                                </div>
-                                            )}
-                                        </div>
-                                    )}
-
-                                    {/* Waveform + controls */}
-                                    <div className="flex-shrink-0 p-4 border-t border-slate-200/30 dark:border-slate-700/30 flex flex-col gap-3">
-                                        {status === 'connecting' && (
-                                            <div className="flex items-center justify-center gap-2 text-emerald-500 py-1">
-                                                <Loader2 size={18} />
-                                                <span className="text-xs font-bold uppercase tracking-widest">Подключение...</span>
-                                            </div>
-                                        )}
-                                        {status === 'connected' && (
-                                            <div className="flex items-end justify-center gap-1 h-8">
-                                                {[0,1,2,3,4,5,6,7].map(i => (
-                                                    <div key={i} className="w-2 bg-emerald-500 rounded-full transition-all duration-300"
-                                                        style={{ height: isAgentSpeaking ? `${30 + ((i*37+13)%60)}%` : '25%',
-                                                                 opacity: isAgentSpeaking ? 1 : 0.4 }}></div>
-                                                ))}
-                                            </div>
-                                        )}
-                                        {!isActive ? (
-                                            <button onClick={connect} className="w-full py-3 bg-emerald-500 text-white font-bold rounded-xl shadow-lg hover:bg-emerald-600 active:scale-95 transition-all flex items-center justify-center gap-2">
-                                                <Mic size={18} /> Начать разговор
-                                            </button>
-                                        ) : (
-                                            <button onClick={stop} className="w-full py-3 bg-red-500 text-white font-bold rounded-xl shadow-lg hover:bg-red-600 active:scale-95 transition-all flex items-center justify-center gap-2">
-                                                <Square size={18} /> Завершить
-                                            </button>
-                                        )}
-                                        <a href="https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/soglasie-PD.pdf" target="_blank" rel="noopener noreferrer" className="text-xs text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 underline underline-offset-2 text-center transition-colors">Согласен на обработку перс.данных</a>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Toggle Button */}
-                        <button onClick={() => setIsOpen(!isOpen)}
-                            className={`ai-widget-toggle pointer-events-auto w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 relative group ${isOpen ? 'ai-widget-toggle-open bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-300' : 'bg-gradient-to-r from-emerald-500 to-teal-400 text-white'}`}>
-                            {isOpen ? <X size={24} /> : <Bot size={24} />}
-                            {!isOpen && (
-                                <span className="absolute right-full mr-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
-                                    AI Ассистент
-                                </span>
-                            )}
-                        </button>
-                    </div>
-                );
-            }
+            // --- AI ВИДЖЕТ (загружается из aida-widget.js) ---
+            const AIWidget = window.AIWidget;
 
             // --- ГЛАВНОЕ ПРИЛОЖЕНИЕ ---
             function App() {
@@ -1210,11 +558,27 @@
                 const [activeDoc, setActiveDoc] = useState(null); // 'privacy' or 'agreement'
                 const [lightboxOpen, setLightboxOpen] = useState(false);
                 const [showMapModal, setShowMapModal] = useState(false);
+                const [paidServicesData, setPaidServicesData] = useState([]);
+                const [equipmentData, setEquipmentData] = useState([]);
+                const [servicesJsonData, setServicesJsonData] = useState(null);
                 const [showSpeedtestModal, setShowSpeedtestModal] = useState(false);
                 const [activeSpeedtestTab, setActiveSpeedtestTab] = useState('yandex');
+                const [showPricesSidebar, setShowPricesSidebar] = useState(false);
                 const [currentLicenseIndex, setCurrentLicenseIndex] = useState(0);
                 const [showCookieConsent, setShowCookieConsent] = useState(false);
                 const [checkResultModal, setCheckResultModal] = useState(false);
+                const [showNewsModal, setShowNewsModal] = useState(false);
+                const [selectedNews, setSelectedNews] = useState(null);
+                const [visibleNewsCount, setVisibleNewsCount] = useState(3);
+
+                // News Data — загружается из news.json
+                const [allNews, setAllNews] = useState([]);
+                useEffect(() => {
+                    fetch('news.json')
+                        .then(r => r.json())
+                        .then(data => setAllNews(data.filter(n => n.active !== false)))
+                        .catch(() => {});
+                }, []);
                 const [touchStart, setTouchStart] = useState(null);
                 const [touchEnd, setTouchEnd] = useState(null);
                 const minSwipeDistance = 50;
@@ -1518,21 +882,38 @@
                     { name: 'Поддержка', id: 'help' },
                 ];
 
-                const tariffsData = {
-                    house: [
-                        { name: 'Это просто', speed: '25 Мбит/с', price: '869', features: ['Технология GPON', 'Оптика в дом', 'Стабильно в любую погоду'] },
-                        { name: 'Для тебя', speed: '40 Мбит/с', price: '749', features: ['Технология GPON', 'Оптика в дом', 'Стабильно в любую погоду'] },
-                        { name: 'Smit', speed: '100 Мбит/с', price: '949', isHit: true, features: ['Технология GPON', 'Оптика в дом', 'Стабильно в любую погоду'] },
-                        { name: 'Без границ', speed: '150 Мбит/с', price: '1199', features: ['Технология GPON', 'Оптика в дом', 'Статический IP'] },
-                        { name: 'Супер', speed: 'до 50 Мбит/с', price: '1199', features: ['Технология беспроводной wi-fi', 'Подходит для удалённых точек подключения'] },
-                    ],
-                    business: [
-                        { name: 'Старт', speed: '10 Мбит/с', price: '2990', features: ['Выделенная линия', 'Техподдержка'] },
-                        { name: 'Офис', speed: '30 Мбит/с', price: '4990', features: ['Выделенная линия', 'SLA гарантия'] },
-                        { name: 'Бизнес', speed: '50 Мбит/с', price: '6790', isHit: true, features: ['Выделенная линия', 'SLA гарантия', 'Статический IP'] },
-                        { name: 'Максимум', speed: '100 Мбит/с', price: '9990', features: ['Выделенная линия', 'SLA гарантия', 'Персональный менеджер', 'Статический IP'] },
-                    ]
-                };
+                const [tariffsData, setTariffsData] = useState({
+                    house: [],
+                    business: []
+                });
+
+                useEffect(() => {
+                    fetch("tariffs.json?" + Date.now())
+                        .then(r => r.json())
+                        .then(data => {
+                            const filtered = {};
+                            Object.keys(data).forEach(cat => {
+                                filtered[cat] = (data[cat] || []).filter(t => t.active !== false);
+                            });
+                            setTariffsData(filtered);
+                        })
+                        .catch(e => console.error("tariffs load error:", e));
+                }, []);
+
+                useEffect(() => {
+                    fetch("paidServices.json?" + Date.now())
+                        .then(r => r.json())
+                        .then(data => setPaidServicesData((data || []).filter(i => i.active !== false)))
+                        .catch(e => console.error("paidServices load error:", e));
+                    fetch("equipment.json?" + Date.now())
+                        .then(r => r.json())
+                        .then(data => setEquipmentData((data || []).filter(i => i.active !== false)))
+                        .catch(e => console.error("equipment load error:", e));
+                    fetch("services.json?" + Date.now())
+                        .then(r => r.json())
+                        .then(data => setServicesJsonData(data))
+                        .catch(e => console.error("services load error:", e));
+                }, []);
 
                 const servicesDetails = {
                     tv: {
@@ -1540,13 +921,13 @@
                         subtitle: 'Более 200 каналов в высоком качестве',
                         icon: Tv,
                         description: 'Современное телевидение с возможностью управления эфиром. Смотрите любимые передачи тогда, когда удобно вам.',
-                        features: ['Архив передач за 7 дней', 'Пауза и перемотка', 'Просмотр на 5 устройствах', 'Кинотеатры (START, Premier)'],
+                        features: ['Архив передач за 7 дней', 'Пауза и перемотка', 'Просмотр на 5 устройствах', 'Кинотеатры (Старт, Премьер)'],
                         image: 'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/smitrobot_tv.jpg',
-                        prices: [
+                        prices: (servicesJsonData && servicesJsonData.tv ? servicesJsonData.tv.prices.filter(p => p.active !== false) : [
                             { name: 'Стандарт', detail: 'Базовый пакет каналов', price: '249 ₽' },
                             { name: 'Оптима', detail: 'Расширенный пакет', price: '499 ₽' },
                             { name: 'Эксклюзив', detail: 'Максимальный пакет', price: '999 ₽' },
-                        ],
+                        ]),
                         cta: 'Подключить ТВ',
                         aiMessage: 'Привет, я хочу подключить интерактивное ТВ'
                     },
@@ -1557,9 +938,9 @@
                         description: 'Облачное видеонаблюдение для частных домов и дворов. Доступ к камерам из любой точки мира через приложение.',
                         features: ['Запись в облако 24/7', 'Доступ со смартфона', 'Датчики движения', 'Ночная съемка'],
                         image: 'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/smitrobot_video.jpg',
-                        prices: [
+                        prices: (servicesJsonData && servicesJsonData.cctv ? servicesJsonData.cctv.prices.filter(p => p.active !== false) : [
                             { name: 'Установка камеры под ключ', detail: 'Монтаж, настройка и подключение', price: '13 500 ₽' },
-                        ],
+                        ]),
                         cta: 'Заказать установку',
                         aiMessage: 'Привет, я хочу заказать установку видеонаблюдения'
                     },
@@ -1567,13 +948,15 @@
                         title: 'Компьютерный сервис',
                         subtitle: 'Скорая компьютерная помощь',
                         icon: Cpu,
-                        description: 'Квалифицированный ремонт компьютеров и настройка оборудования от инженеров SmIT. Выезд на дом.',
+                        description: 'Квалифицированный ремонт компьютеров и настройка оборудования от инженеров СмИТ. Выезд на дом.',
                         features: ['Диагностика бесплатно', 'Гарантия на работы', 'Настройка любого ПО', 'Чистка от пыли'],
                         image: 'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/smitrobot_support.jpg',
-                        prices: [
-                            { name: 'Настройка роутера', detail: 'Любая модель', price: '500 ₽' },
-                            { name: 'Обжим кабеля', detail: 'За коннектор', price: '100 ₽' },
-                        ],
+                        prices: (servicesJsonData && servicesJsonData.pc ? servicesJsonData.pc.prices.filter(p => p.active !== false) : [
+                            { name: 'Установка Windows', detail: 'С драйверами', price: '800 ₽' },
+                            { name: 'Настройка роутера', detail: 'Любая модель', price: '1 200 ₽' },
+                            { name: 'Чистка от вирусов', detail: 'Полное сканирование', price: 'от 400 ₽' },
+                            { name: 'Обжим кабеля', detail: 'За коннектор', price: '200 ₽' },
+                        ]),
                         cta: 'Вызвать мастера',
                         aiMessage: 'Привет, я хочу вызвать компьютерного мастера'
                     },
@@ -1583,11 +966,11 @@
                        icon: FileText,
                        description: 'Официальные документы, регламентирующие оказание услуг связи.',
                        fileList: [
-                           { name: 'Регламент оказания услуг связи', desc: 'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/SMIT_Reglament.pdf', size: '100 KB', type: 'pdf', iconType: FileText },
-                           { name: 'Согласие на обработку персональных данных', desc: 'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/Personal_Data.pdf', size: '25 KB', type: 'pdf', iconType: FileText },
-                           { name: 'Условия договора с физическими лицами', desc: 'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/Terms_of_Agreement.pdf', size: '212 KB', type: 'pdf', iconType: FileText },
-                           { name: 'Публичная оферта (IPTV)', desc: 'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/IPTV_offer.pdf', size: '178 KB', type: 'pdf', iconType: FileText },
-                           { name: 'Рекомендации по эксплуатации оборудования', desc: 'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/Telecom_Equipment.pdf', size: '62 KB', type: 'pdf', iconType: FileText },
+                           { name: 'Регламент оказания услуг связи', desc: 'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/SMIT_Reglament.pdf', size: '100 КБ', type: 'pdf', iconType: FileText },
+                           { name: 'Согласие на обработку персональных данных', desc: 'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/Personal_Data.pdf', size: '25 КБ', type: 'pdf', iconType: FileText },
+                           { name: 'Условия договора с физическими лицами', desc: 'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/Terms_of_Agreement.pdf', size: '212 КБ', type: 'pdf', iconType: FileText },
+                           { name: 'Публичная оферта (Интерактивное ТВ)', desc: 'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/IPTV_offer.pdf', size: '178 КБ', type: 'pdf', iconType: FileText },
+                           { name: 'Рекомендации по эксплуатации оборудования', desc: 'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/Telecom_Equipment.pdf', size: '62 КБ', type: 'pdf', iconType: FileText },
                        ],
                        cta: 'Закрыть',
                    },
@@ -1648,7 +1031,7 @@
                         title: 'Оплата',
                         subtitle: 'Пополнение баланса',
                         icon: CreditCard,
-                        description: 'Оплачивайте услуги интернета и телевидения онлайн без комиссии. Средства зачисляются мгновенно.',
+                        description: 'Оплачивайте услуги интернета и телевидения онлайн. Удобный способ пополнения баланса.',
                         cta: 'Перейти к оплате', 
                         isPayment: true 
                     }
@@ -1662,9 +1045,9 @@
                         <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'py-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-emerald-100/50 dark:border-emerald-900/50 shadow-sm' : 'py-4 bg-transparent'}`}>
                             <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
                                 {/* Logo */}
-                                <div className="flex items-center gap-2 cursor-pointer" onClick={scrollToTop}>
-                                    <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-emerald-500/20">S</div>
-                                    <span className="text-2xl font-bold tracking-tight text-slate-800 dark:text-white">SmIT</span>
+                                <div className="flex items-center gap-2 cursor-pointer logo-hover" onClick={scrollToTop}>
+                                    <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-400 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-emerald-500/20 logo-icon">С</div>
+                                    <span className="text-2xl font-bold tracking-tight text-slate-800 dark:text-white logo-text">СмИТ</span>
                                 </div>
 
                                 {/* Desktop Nav */}
@@ -1696,19 +1079,29 @@
 
                                     <div className="flex flex-col items-end mr-2">
                                         <a href="tel:+79375551122" className="text-sm font-bold text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">+7 (937) 555-11-22</a>
+                                        <a href="tel:+78442553559" className="text-xs text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-1"><Phone size={10} />55-35-59</a>
                                     </div>
                                     <a href="#" className="p-2 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-full transition-colors" title="Быстрая оплата" onClick={() => setActiveService('payment')}>
                                         <CreditCard size={20} />
                                     </a>
-                                    <Button primary className="!px-4 !py-2 !rounded-lg text-sm" onClick={() => { trackGoal('open_cabinet'); window.open('https://bill.smit34.ru', '_blank'); }}>
+                                    <Button primary className="!px-4 !py-2 !rounded-lg text-sm" onClick={() => { trackGoal('open_cabinet'); window.open('http://bill.smit34.ru', '_blank'); }}>
                                         <User size={16} /> Кабинет
                                     </Button>
                                 </div>
 
-                                {/* Mobile Menu Toggle */}
-                                <button className="lg:hidden p-2 text-slate-700 dark:text-slate-200 z-[110] relative" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-                                    {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-                                </button>
+                                {/* Mobile Theme + Menu */}
+                                <div className="lg:hidden flex items-center gap-1">
+                                    <a href="tel:+78442553559" className="text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-emerald-500 transition-colors mr-1">55-35-59</a>
+                                    <button
+                                        onClick={toggleTheme}
+                                        className="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"
+                                    >
+                                        {theme === 'dark' ? <Sun size={22} className="text-yellow-500"/> : <Moon size={22} className="text-slate-600"/>}
+                                    </button>
+                                    <button className="p-2 text-slate-700 dark:text-slate-200 z-[110] relative" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                                        {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                                    </button>
+                                </div>
                             </div>
                         </header>
 
@@ -1719,14 +1112,6 @@
                                     <X size={22} />
                                 </button>
                                 <div ref={mobileMenuRef} className="flex flex-col items-center gap-8 w-full max-w-sm">
-                                    {/* Mobile Theme Toggle */}
-                                    <button 
-                                        onClick={toggleTheme}
-                                        className="p-3 bg-slate-100 dark:bg-slate-800 rounded-full mb-4 mobile-menu-item"
-                                    >
-                                        {theme === 'dark' ? <Sun size={24} className="text-yellow-500"/> : <Moon size={24} className="text-slate-600"/>}
-                                    </button>
-
                                     {navLinks.map((link) => (
                                         <button 
                                             key={link.name} 
@@ -1750,19 +1135,22 @@
                                             className="w-full justify-center relative group px-4 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg shadow-purple-500/30 flex items-center gap-2 text-lg"
                                         >
                                             <Bot size={20} />
-                                            <span>AI-ассистент</span>
+                                            <span>Виртуальный помощник</span>
                                         </button>
                                     </div>
                                     
                                     <div className="w-full flex flex-col gap-4 mobile-menu-item">
-                                        <Button onClick={() => { trackGoal('open_cabinet'); window.open('https://bill.smit34.ru', '_blank'); }} className="w-full justify-center text-lg py-4">
+                                        <Button onClick={() => { trackGoal('open_cabinet'); window.open('http://bill.smit34.ru', '_blank'); }} className="w-full justify-center text-lg py-4">
                                             <User size={20} /> Личный кабинет
                                         </Button>
                                     </div>
 
                                     <div className="flex flex-col items-center gap-2 mt-8 mobile-menu-item">
                                         <a href="tel:+79375551122" className="text-2xl font-bold text-emerald-600 dark:text-emerald-400" onClick={() => trackGoal('click_phone')}>+7 (937) 555-11-22</a>
-                                        <span className="text-slate-400 dark:text-slate-500">Работаем круглосуточно</span>
+                                        <a href="tel:+78442553559" className="text-lg font-bold text-slate-300 dark:text-slate-400 hover:text-emerald-400 transition-colors flex items-center gap-2" onClick={() => trackGoal('click_phone_support')}>
+                                            <Phone size={16} /> 55-35-59
+                                        </a>
+                                        <span className="text-slate-400 dark:text-slate-500">Круглосуточная поддержка</span>
                                     </div>
                                 </div>
                             </div>
@@ -1775,14 +1163,14 @@
                                     <Badge>Новая Эра Технологий</Badge>
                                     
                                     <h1 ref={titleRef} style={{opacity: 0}} className="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 text-slate-900 dark:text-white">
-                                        Стабильный Интернет <br/>
+                                        Надёжный Интернет <br/>
                                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400">
                                             в Волгоградской области
                                         </span>
                                     </h1>
 
                                     <p ref={textRef} style={{opacity: 0}} className="text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-lg leading-relaxed glass-text">
-                                        Бесплатное подключение квартир и технология GPON в частный сектор. Скорость света в вашем доме.
+                                        Подключаем квартиры и частный сектор. Оптика ГПОН и беспроводные решения — выберите подходящий вариант для вашего дома.
                                     </p>
 
                                     <div ref={checkBlockRef} style={{opacity: 0}} className="glass-panel p-2 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-white/50 dark:border-slate-700/50 shadow-lg inline-flex flex-col relative w-full md:w-auto">
@@ -1827,7 +1215,7 @@
                                         <img 
                                             ref={heroImageRef}
                                             src="https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/smitrobot.png" 
-                                            alt="Робот-помощник SMIT" 
+                                            alt="Робот-помощник СМИТ"
                                             className="w-full h-auto object-cover rounded-3xl transition-transform duration-100 ease-out hover:scale-105 drop-shadow-2xl aspect-square"
                                             style={{transformStyle: 'preserve-3d'}}
                                         />
@@ -1901,7 +1289,7 @@
                                             key={index}
                                             animateIn
                                             hoverEffect={false}
-                                            className={`gsap-card relative flex flex-col overflow-hidden group
+                                            className={`gsap-card relative flex flex-col overflow-visible group
                                                 bg-gradient-to-br from-white/95 via-white/80 to-emerald-50/60
                                                 dark:from-slate-800/90 dark:via-slate-800/70 dark:to-emerald-950/50
                                                 border border-white/90 dark:border-emerald-900/30
@@ -1975,7 +1363,7 @@
                                              <img 
                                                  ref={bizRobotRef}
                                                  src="https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/smitrobot-biz.png" 
-                                                 alt="SMIT для бизнеса" 
+                                                 alt="СМИТ для бизнеса"
                                                  className="w-full max-w-sm object-cover rounded-t-3xl drop-shadow-2xl origin-bottom"
                                                  style={{transformStyle: 'preserve-3d'}}
                                              />
@@ -1985,7 +1373,7 @@
                         
                                          {/* Right: Content */}
                                          <div className="text-white pb-8 md:pb-12 -mt-24 md:mt-0 relative z-10">
-                                             <Badge>SMIT Бизнес</Badge>
+                                             <Badge>СМИТ Бизнес</Badge>
                                              <h2 className="text-3xl md:text-4xl font-bold mb-6 mt-4">Высокоскоростной интернет для вашего дела</h2>
                                              
                                              <div className="space-y-6 mb-8">
@@ -2004,7 +1392,7 @@
                                                          <Server size={24} />
                                                       </div>
                                                       <div>
-                                                         <h4 className="text-lg font-bold">Выделенная линия & SLA</h4>
+                                                         <h4 className="text-lg font-bold">Выделенная линия и гарантия качества</h4>
                                                          <p className="text-slate-400 text-sm">Гарантированная доступность сервиса</p>
                                                       </div>
                                                  </div>
@@ -2054,7 +1442,7 @@
                                             <Monitor size={24} />
                                         </div>
                                         <h3 className="text-xl font-bold mb-2">Интерактивное ТВ</h3>
-                                        <p className="text-slate-500 dark:text-slate-400 text-sm mb-4">Более 200 каналов в HD качестве. Управление эфиром: пауза, перемотка, архив передач за 7 дней.</p>
+                                        <p className="text-slate-500 dark:text-slate-400 text-sm mb-4">Более 200 каналов в высоком (HD) качестве. Управление эфиром: пауза, перемотка, архив передач за 7 дней.</p>
                                         <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Подробнее <ArrowRight size={14}/></span>
                                     </GlassCard>
 
@@ -2089,6 +1477,72 @@
                             </div>
                         </section>
 
+                        {/* NEWS & EVENTS */}
+                        <section id="news" className="relative py-20 overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-50/30 to-transparent dark:via-emerald-950/10 pointer-events-none"></div>
+                            <div className="container mx-auto max-w-4xl px-4 relative z-10">
+                                <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                                    <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
+                                        Новости и события
+                                    </h2>
+                                    <p className="text-slate-600 dark:text-slate-400 text-lg">Будьте в курсе последних обновлений компании</p>
+                                </div>
+                                <div className="relative">
+                                    <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500 via-emerald-400 to-transparent dark:from-emerald-600 dark:via-emerald-500 hidden md:block"></div>
+                                    <div className="space-y-8">
+                                        {allNews.slice(0, visibleNewsCount).map((news, index) => (
+                                            <div key={news.id} className="relative md:pl-12 animate-in fade-in slide-in-from-left duration-700 fill-mode-backwards" style={{animationDelay: `${(index + 1) * 0.1}s`}}>
+                                                <div className={`absolute left-0 top-6 w-3 h-3 bg-emerald-500 dark:bg-emerald-400 rounded-full border-4 border-white dark:border-slate-900 shadow-lg shadow-emerald-500/50 hidden md:block ${index === 0 ? 'animate-pulse' : ''}`}></div>
+                                                <div className="relative group">
+                                                    <div className="relative bg-gradient-to-br from-white/80 to-white/40 dark:from-slate-800/80 dark:to-slate-800/40 backdrop-blur-xl rounded-2xl border border-white/20 dark:border-slate-700/50 shadow-xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/20">
+                                                        <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                                        <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl opacity-0 group-hover:opacity-20 blur transition-opacity duration-500"></div>
+                                                        {news.image ? (
+                                                            <div className="relative flex flex-col sm:flex-row gap-6">
+                                                                <div className="sm:w-64 h-48 sm:h-auto shrink-0 overflow-hidden rounded-t-2xl sm:rounded-l-2xl sm:rounded-tr-none">
+                                                                    <img src={news.image} alt={news.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                                                </div>
+                                                                <div className="flex-1 p-6 sm:py-6 sm:pr-6 sm:pl-0">
+                                                                    <div className="flex items-center gap-3 mb-4">
+                                                                        <span className="text-sm font-medium text-slate-500 dark:text-slate-400">{news.date}</span>
+                                                                        <span className={`px-3 py-1 bg-${news.categoryColor}-100 dark:bg-${news.categoryColor}-900/30 text-${news.categoryColor}-700 dark:text-${news.categoryColor}-400 text-xs font-bold rounded-full border border-${news.categoryColor}-200 dark:border-${news.categoryColor}-800`}>{news.category}</span>
+                                                                    </div>
+                                                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{news.title}</h3>
+                                                                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">{news.excerpt}</p>
+                                                                    <button onClick={() => { setSelectedNews(news); setShowNewsModal(true); }} className="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-semibold group-hover:gap-3 transition-all">
+                                                                        Подробнее <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        ) : (
+                                                            <div className="relative p-6">
+                                                                <div className="flex items-center gap-3 mb-4">
+                                                                    <span className="text-sm font-medium text-slate-500 dark:text-slate-400">{news.date}</span>
+                                                                    <span className={`px-3 py-1 bg-${news.categoryColor}-100 dark:bg-${news.categoryColor}-900/30 text-${news.categoryColor}-700 dark:text-${news.categoryColor}-400 text-xs font-bold rounded-full border border-${news.categoryColor}-200 dark:border-${news.categoryColor}-800`}>{news.category}</span>
+                                                                </div>
+                                                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{news.title}</h3>
+                                                                <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">{news.excerpt}</p>
+                                                                <button onClick={() => { setSelectedNews(news); setShowNewsModal(true); }} className="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-semibold group-hover:gap-3 transition-all">
+                                                                    Узнать больше <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                                                </button>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {visibleNewsCount < allNews.length && (
+                                        <div className="text-center mt-12 animate-in fade-in duration-700 fill-mode-backwards" style={{animationDelay: '0.4s'}}>
+                                            <button onClick={() => setVisibleNewsCount(prev => Math.min(prev + 3, allNews.length))} className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-xl shadow-lg hover:shadow-emerald-500/50 transition-all hover:-translate-y-1">
+                                                Показать ещё ({allNews.length - visibleNewsCount}) <ArrowRight size={20} />
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </section>
+
                         {/* EQUIPMENT */}
                         <section className="py-20 px-4 gsap-section relative overflow-hidden">
                             {/* Robot background — positioned at section level */}
@@ -2112,46 +1566,20 @@
                                 </div>
 
                                 <div className="grid md:grid-cols-3 gap-6 items-center">
-                                    <GlassCard className="gsap-card flex items-center gap-6 backdrop-blur-md bg-white/70 dark:bg-slate-800/60 border border-white/80 dark:border-slate-700/40 shadow-xl relative z-10" animateIn style={{animationDelay: '0s'}}>
-                                        <div className="w-24 h-24 bg-white/60 dark:bg-slate-700/40 rounded-lg flex items-center justify-center shrink-0 backdrop-blur-sm">
-                                            <Wifi size={40} className="text-slate-400 dark:text-slate-300" />
-                                        </div>
-                                        <div>
-                                            <h4 className="text-xl font-bold mb-1">Однодиапазонный роутер</h4>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">Wi-Fi 2.4GHz. Базовое покрытие.</p>
-                                            <div className="flex items-center gap-4">
-                                                <span className="font-bold text-emerald-600 dark:text-emerald-400">3 500 <span className="whitespace-nowrap">₽</span></span>
-                                                <span className="text-xs bg-emerald-100/80 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-2 py-1 rounded backdrop-blur-sm">Рассрочка</span>
+                                    {equipmentData.map((eq, i) => (
+                                        <GlassCard key={eq.id || i} className="gsap-card flex items-center gap-6 backdrop-blur-md bg-white/70 dark:bg-slate-800/60 border border-white/80 dark:border-slate-700/40 shadow-xl relative z-10" animateIn style={{animationDelay: `${i * 0.05}s`}}>
+                                            <div className="w-24 h-24 bg-white/60 dark:bg-slate-700/40 rounded-lg flex items-center justify-center shrink-0 backdrop-blur-sm">
+                                                {eq.icon === 'monitor' ? <Monitor size={40} className="text-slate-400 dark:text-slate-300" /> : <Wifi size={40} className="text-slate-400 dark:text-slate-300" />}
                                             </div>
-                                        </div>
-                                    </GlassCard>
-
-                                    <GlassCard className="gsap-card flex items-center gap-6 backdrop-blur-md bg-white/70 dark:bg-slate-800/60 border border-white/80 dark:border-slate-700/40 shadow-xl relative z-10" animateIn style={{animationDelay: '0.05s'}}>
-                                        <div className="w-24 h-24 bg-white/60 dark:bg-slate-700/40 rounded-lg flex items-center justify-center shrink-0 backdrop-blur-sm">
-                                            <Wifi size={40} className="text-slate-400 dark:text-slate-300" />
-                                        </div>
-                                        <div>
-                                            <h4 className="text-xl font-bold mb-1">Гигабитный, двухдиапазонный роутер</h4>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">Wi-Fi 5GHz + 2.4GHz. Гигабитные порты.</p>
-                                            <div className="flex items-center gap-4">
-                                                <span className="font-bold text-emerald-600 dark:text-emerald-400">4 500 <span className="whitespace-nowrap">₽</span></span>
-                                                <span className="text-xs bg-emerald-100/80 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-2 py-1 rounded backdrop-blur-sm">Рассрочка</span>
+                                            <div>
+                                                <h4 className="text-xl font-bold mb-1">{eq.name}</h4>
+                                                <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">{eq.description}</p>
+                                                <div className="flex items-center gap-4">
+                                                    <span className="font-bold text-emerald-600 dark:text-emerald-400">{eq.price} <span className="whitespace-nowrap">₽</span></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </GlassCard>
-
-                                    <GlassCard className="gsap-card flex items-center gap-6 backdrop-blur-md bg-white/70 dark:bg-slate-800/60 border border-white/80 dark:border-slate-700/40 shadow-xl relative z-10" animateIn style={{animationDelay: '0.1s'}}>
-                                        <div className="w-24 h-24 bg-white/60 dark:bg-slate-700/40 rounded-lg flex items-center justify-center shrink-0 backdrop-blur-sm">
-                                            <Monitor size={40} className="text-slate-400 dark:text-slate-300" />
-                                        </div>
-                                        <div>
-                                            <h4 className="text-xl font-bold mb-1">ТВ-Приставка 4K</h4>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">Android TV, YouTube, Кинотеатры.</p>
-                                            <div className="flex items-center gap-4">
-                                                <span className="font-bold text-emerald-600 dark:text-emerald-400">4 200 <span className="whitespace-nowrap">₽</span></span>
-                                            </div>
-                                        </div>
-                                    </GlassCard>
+                                        </GlassCard>
+                                    ))}
                                 </div>
                             </div>
                         </section>
@@ -2180,8 +1608,8 @@
                                             >
                                                 <div className="p-2 bg-emerald-500 rounded-lg"><Zap size={20} /></div>
                                                 <div>
-                                                    <div className="font-bold">Speedtest</div>
-                                                    <div className="text-xs text-slate-400">Проверить скорость</div>
+                                                    <div className="font-bold">Тест скорости</div>
+                                                    <div className="text-xs text-slate-400">Проверить скорость соединения</div>
                                                 </div>
                                             </button>
                                             <button 
@@ -2203,7 +1631,7 @@
                                                     <div className="font-bold">Инструкции</div>
                                                 </div>
                                             </button>
-                                            <button 
+                                            <button
                                                 className="flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl transition-colors text-left border border-white/10"
                                                 onClick={() => setActiveService('payment')}
                                             >
@@ -2211,6 +1639,16 @@
                                                 <div>
                                                     <div className="font-bold">Оплата</div>
                                                     <div className="text-xs text-slate-400">Способы оплаты</div>
+                                                </div>
+                                            </button>
+                                            <button
+                                                className="flex items-center gap-3 p-4 bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 rounded-xl transition-all text-left border border-amber-400/30 sm:col-span-2"
+                                                onClick={() => setShowPricesSidebar(true)}
+                                            >
+                                                <div className="p-2 bg-amber-500 rounded-lg"><ClipboardList size={20} /></div>
+                                                <div>
+                                                    <div className="font-bold">Платные услуги</div>
+                                                    <div className="text-xs text-slate-400">Прайс-лист на работы</div>
                                                 </div>
                                             </button>
                                         </div>
@@ -2226,13 +1664,16 @@
                                                     className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30 hover:scale-105 border-none whitespace-nowrap"
                                                     onClick={() => window.openAIWidget && window.openAIWidget()}
                                                 >
-                                                    <Bot size={20} /> Спросить у AI
+                                                    <Bot size={20} /> Спросить у помощника
                                                 </Button>
                                             </div>
                                             <div className="flex flex-col sm:flex-row gap-6 mt-6">
                                                 <div>
-                                                    <a href="tel:+79375551122" className="text-3xl font-bold text-emerald-400 hover:text-emerald-300 transition-colors whitespace-nowrap block mb-3">
+                                                    <a href="tel:+79375551122" className="text-3xl font-bold text-emerald-400 hover:text-emerald-300 transition-colors whitespace-nowrap block mb-1">
                                                         +7 (937) 555-11-22
+                                                    </a>
+                                                    <a href="tel:+78442553559" className="text-lg font-semibold text-slate-300 hover:text-emerald-300 transition-colors flex items-center gap-2 mb-3">
+                                                        <Phone size={14} /> 55-35-59 <span className="text-xs text-slate-500 font-normal">Круглосуточная поддержка</span>
                                                     </a>
                                                     <div className="flex items-center gap-4">
                                                         <div className="flex items-center gap-2 text-slate-400 text-sm">
@@ -2241,11 +1682,11 @@
                                                         </div>
                                                         <a href="https://t.me/smitsupport_bot" target="_blank" className="flex items-center gap-2 text-sky-400 hover:text-sky-300 transition-colors text-sm">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                                                            Telegram
+                                                            Телеграм
                                                         </a>
                                                         <a href="https://vk.com/im/convo/-214756373?entrypoint=list_all&rp=peer-214756373" target="_blank" className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-sm">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22.5h-5c-6.5 0-7.5-5-7.5-9s1-9 7.5-9h5c6.5 0 7.5 5 7.5 9s-1 9-7.5 9z"/><path d="M17.5 8c.5.5 1 2 1 4s-.5 3.5-1 4"/><path d="M14.5 12h-5"/></svg>
-                                                            Написать в VK
+                                                            Написать в ВК
                                                         </a>
                                                     </div>
                                                 </div>
@@ -2260,7 +1701,7 @@
                                          
                                          <img 
                                             src="https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/smitrobot_help.png" 
-                                            alt="Робот поддержки SMIT" 
+                                            alt="Робот поддержки СМИТ" 
                                             className="relative w-full max-w-md object-cover rounded-3xl animate-float drop-shadow-2xl z-10"
                                          />
                                     </div>
@@ -2294,7 +1735,7 @@
                             <div className="container mx-auto max-w-6xl relative z-10">
                                 <div className="grid md:grid-cols-2 gap-12 items-center">
                                     <div>
-                                        <h2 className="text-3xl font-bold mb-6 text-slate-900 dark:text-white">SmIT — твой местный оператор</h2>
+                                        <h2 className="text-3xl font-bold mb-6 text-slate-900 dark:text-white">СмИТ — твой местный оператор</h2>
                                         <div className="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed">
                                             <p>
                                                 Мы работаем в Красноармейском районе уже более 10 лет. В отличие от федеральных гигантов, мы рядом. 
@@ -2310,8 +1751,8 @@
                                                 <div className="text-sm text-slate-500 dark:text-slate-400">Лет на рынке</div>
                                             </div>
                                             <div className="p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl border border-emerald-100 dark:border-emerald-800">
-                                                <div className="font-bold text-3xl text-emerald-600 dark:text-emerald-400 mb-1">GPON</div>
-                                                <div className="text-sm text-slate-500 dark:text-slate-400">Технология будущего</div>
+                                                <div className="font-bold text-3xl text-emerald-600 dark:text-emerald-400 mb-1">ГПОН</div>
+                                                <div className="text-sm text-slate-500 dark:text-slate-400">Гигабитная оптическая сеть</div>
                                             </div>
                                         </div>
                                     </div>
@@ -2379,7 +1820,7 @@
                                             onClick={() => setActiveSpeedtestTab('rt')}
                                             className={`flex-1 p-4 font-bold text-center transition-colors ${activeSpeedtestTab === 'rt' ? 'bg-white dark:bg-slate-900 text-emerald-600 dark:text-emerald-400 border-b-2 border-emerald-500' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200'}`}
                                         >
-                                            Ростелеком Speedtest
+                                            Ростелеком Тест скорости
                                         </button>
                                     </div>
                                     
@@ -2414,7 +1855,7 @@
                                                     rel="noopener noreferrer"
                                                     className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg hover:shadow-purple-500/30 hover:-translate-y-1"
                                                 >
-                                                    Открыть RT Speedtest <ArrowRight size={20} />
+                                                    Открыть тест скорости Ростелеком <ArrowRight size={20} />
                                                 </a>
                                             </div>
                                         )}
@@ -2423,33 +1864,113 @@
                             </div>
                         )}
 
+                        {/* PRICES SIDEBAR */}
+                        {showPricesSidebar && (
+                            <div className="fixed inset-0 z-[100] flex justify-end" style={{animation: 'fadeIn 0.2s ease'}}>
+                                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowPricesSidebar(false)}></div>
+                                <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 shadow-2xl overflow-y-auto" style={{animation: 'slideInFromRight 0.3s cubic-bezier(0.4, 0, 0.2, 1)'}}>
+                                    <div className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between">
+                                        <div>
+                                            <h2 className="text-xl font-bold text-slate-900 dark:text-white">Платные услуги</h2>
+                                            <p className="text-sm text-slate-500 dark:text-slate-400">Прайс-лист на работы и материалы</p>
+                                        </div>
+                                        <button className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" onClick={() => setShowPricesSidebar(false)}>
+                                            <X size={24} className="text-slate-500" />
+                                        </button>
+                                    </div>
+                                    <div className="px-6 py-4">
+                                        <table className="w-full">
+                                            <thead>
+                                                <tr className="border-b-2 border-emerald-500/30">
+                                                    <th className="text-left py-3 text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Наименование</th>
+                                                    <th className="text-right py-3 text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider whitespace-nowrap">Стоимость</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {paidServicesData.map((item, i) => (
+                                                    <tr key={i} className={`border-b border-slate-100 dark:border-slate-800 ${i % 2 === 0 ? 'bg-slate-50/50 dark:bg-slate-800/30' : ''} hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10 transition-colors`}>
+                                                        <td className="py-3 pr-4 text-sm text-slate-700 dark:text-slate-300">{item.name}</td>
+                                                        <td className="py-3 text-right text-sm font-semibold text-emerald-600 dark:text-emerald-400 whitespace-nowrap">{item.price} <span className="whitespace-nowrap">₽</span></td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                        <p className="text-xs text-slate-400 dark:text-slate-500 mt-6 text-center">Цены указаны за единицу. Уточняйте стоимость у оператора.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* NEWS MODAL */}
+                        {showNewsModal && selectedNews && (
+                            <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-300" onClick={() => setShowNewsModal(false)}>
+                                <button className="absolute top-3 right-3 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white hover:text-emerald-400 transition-colors z-[101]" onClick={() => setShowNewsModal(false)}>
+                                    <X size={32} />
+                                </button>
+                                <div className="w-full max-w-4xl max-h-[90vh] bg-white dark:bg-slate-900 rounded-2xl overflow-hidden relative shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                                    {selectedNews.image && (
+                                        <div className="relative h-64 md:h-80 overflow-hidden">
+                                            <img src={selectedNews.image} alt={selectedNews.title} className="w-full h-full object-cover" />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                                            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <span className="text-sm font-medium text-white/90">{selectedNews.date}</span>
+                                                    <span className={`px-3 py-1 bg-${selectedNews.categoryColor}-500/80 text-white text-xs font-bold rounded-full`}>{selectedNews.category}</span>
+                                                </div>
+                                                <h2 className="text-2xl md:text-3xl font-bold text-white">{selectedNews.title}</h2>
+                                            </div>
+                                        </div>
+                                    )}
+                                    <div className="overflow-y-auto max-h-[calc(90vh-20rem)] p-6 md:p-8">
+                                        {!selectedNews.image && (
+                                            <div className="mb-6">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <span className="text-sm font-medium text-slate-500 dark:text-slate-400">{selectedNews.date}</span>
+                                                    <span className={`px-3 py-1 bg-${selectedNews.categoryColor}-100 dark:bg-${selectedNews.categoryColor}-900/30 text-${selectedNews.categoryColor}-700 dark:text-${selectedNews.categoryColor}-400 text-xs font-bold rounded-full border border-${selectedNews.categoryColor}-200 dark:border-${selectedNews.categoryColor}-800`}>{selectedNews.category}</span>
+                                                </div>
+                                                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">{selectedNews.title}</h2>
+                                            </div>
+                                        )}
+                                        <div className="prose prose-slate dark:prose-invert max-w-none prose-headings:text-slate-900 dark:prose-headings:text-white prose-p:text-slate-600 dark:prose-p:text-slate-300 prose-a:text-emerald-600 dark:prose-a:text-emerald-400 prose-strong:text-slate-900 dark:prose-strong:text-white prose-ul:text-slate-600 dark:prose-ul:text-slate-300" dangerouslySetInnerHTML={{ __html: selectedNews.content }} />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         {/* FOOTER */}
                         <footer className="relative z-10 -mt-32 pt-16 pb-8 text-sm animate-in fade-in duration-700 fill-mode-backwards" style={{animationDelay: '1.2s'}}>
-                            {/* Gradient: transparent top → solid footer bottom */}
                             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-50/95 to-slate-50 dark:via-slate-900/95 dark:to-slate-900 pointer-events-none"></div>
                             <div className="container mx-auto max-w-6xl px-4 relative z-10">
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                                     {/* Col 1: Brand */}
                                     <div>
-                                        <div className="flex items-center gap-2 mb-4">
-                                            <div className="w-8 h-8 bg-emerald-600 rounded-md flex items-center justify-center text-white font-bold">S</div>
-                                            <span className="text-xl font-bold text-slate-800 dark:text-white">SmIT</span>
+                                        <div className="flex items-center gap-2 mb-4 logo-hover" style={{width: 'fit-content'}}>
+                                            <div className="w-8 h-8 bg-emerald-600 rounded-md flex items-center justify-center text-white font-bold logo-icon">С</div>
+                                            <span className="text-xl font-bold text-slate-800 dark:text-white logo-text">СмИТ</span>
                                         </div>
-                                        <p className="text-slate-500 dark:text-slate-400 mb-4">© 2026 SmIT.<br/>Все права защищены.</p>
-                                        <div className="flex gap-4">
-                                            {/* VK Icon */}
-                                            <a href="https://vk.com/im/convo/-214756373?entrypoint=list_all&rp=peer-214756373" target="_blank" className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-colors flex items-center justify-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22.5h-5c-6.5 0-7.5-5-7.5-9s1-9 7.5-9h5c6.5 0 7.5 5 7.5 9s-1 9-7.5 9z"/><path d="M17.5 8c.5.5 1 2 1 4s-.5 3.5-1 4"/><path d="M14.5 12h-5"/></svg>
-                                            </a>
-                                            {/* Telegram Icon */}
-                                            <a href="https://t.me/smitsupport_bot" target="_blank" className="w-8 h-8 bg-sky-100 dark:bg-sky-900/30 text-sky-500 dark:text-sky-400 rounded-full hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 dark:hover:text-white transition-colors flex items-center justify-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                                            </a>
-                                             {/* Mail Icon */}
-                                            <a href="mailto:ask@support.smit34.ru" className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 dark:hover:text-white transition-colors flex items-center justify-center">
-                                                <Mail size={16} />
-                                            </a>
-                                        </div>
+                                        <p className="text-slate-500 dark:text-slate-400 mb-4">© 2026 СмИТ.<br/>Все права защищены.</p>
+
+                                        <h4 className="font-semibold text-slate-900 dark:text-white mb-3 text-sm">Мы в соц.сетях</h4>
+                                        <ul className="space-y-2 text-sm">
+                                            <li>
+                                                <a href="https://vk.com/smit34ru" target="_blank" className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-2">
+                                                    <img src="https://storage.googleapis.com/uspeshnyy-projects/smit/robotnet.ru/vkontakte_circled.svg" width="16" height="16" alt="VK" style={{display:"inline-block"}} />
+                                                    Наша группа ВК
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://t.me/internet_smit34" target="_blank" className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                                                    Мы в Телеграм
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://gog.su/7GOG" target="_blank" className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-2">
+                                                    <img src="https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_MAX.svg" width="16" height="16" alt="MAX" style={{display:"inline-block"}} />
+                                                    Наш канал в MAX
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
 
                                     {/* Col 2: Navigation */}
@@ -2458,9 +1979,27 @@
                                         <ul className="space-y-2">
                                             <li><a href="#tariffs" className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Тарифы</a></li>
                                             <li><a href="#services" className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Услуги</a></li>
+                                            <li><a href="#news" className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Новости</a></li>
                                             <li><a href="#help" className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Поддержка</a></li>
-                                            <li><a href="https://bill.smit34.ru" className="text-emerald-600 dark:text-emerald-400 font-medium hover:underline">Личный кабинет</a></li>
                                         </ul>
+
+                                        <div className="flex gap-3 mt-6">
+                                            <a href="https://vk.com/im/convo/-214756373?entrypoint=list_all&rp=peer-214756373" target="_blank" className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-colors flex items-center justify-center">
+                                                <img src="https://storage.googleapis.com/uspeshnyy-projects/smit/robotnet.ru/vkontakte_circled.svg" width="18" height="18" alt="VK" style={{display:"inline-block"}} />
+                                            </a>
+                                            <a href="https://t.me/smitsupport_bot" target="_blank" className="w-8 h-8 bg-sky-100 dark:bg-sky-900/30 text-sky-500 dark:text-sky-400 rounded-full hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 dark:hover:text-white transition-colors flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                                            </a>
+                                            <a href="mailto:ask@support.smit34.ru" className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 dark:hover:text-white transition-colors flex items-center justify-center">
+                                                <Mail size={16} />
+                                            </a>
+                                        </div>
+
+                                        <div className="mt-6">
+                                            <Button primary className="w-full justify-center text-sm py-2" onClick={() => window.open('http://bill.smit34.ru', '_blank')}>
+                                                Личный кабинет
+                                            </Button>
+                                        </div>
                                     </div>
 
                                     {/* Col 3: Documents */}
@@ -2468,12 +2007,14 @@
                                         <h4 className="font-bold text-slate-900 dark:text-white mb-4">Документы</h4>
                                         <ul className="space-y-2">
                                             <li>
-                                                <button 
-                                                    className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-left"
-                                                    onClick={() => setLightboxOpen(true)}
+                                                <a
+                                                    href="https://rkn.gov.ru/activity/connection/register/license/?id=%D0%9B030-00114-77%2F00054887"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                                                 >
                                                     <FileText size={14} /> Лицензии и сертификаты
-                                                </button>
+                                                </a>
                                             </li>
                                             <li>
                                                 <button 
@@ -2518,6 +2059,13 @@
                                                 <div className="flex flex-col">
                                                     <a href="tel:+79375551122" className="hover:text-emerald-600 dark:hover:text-emerald-400 font-medium">+7 (937) 555-11-22</a>
                                                     <span className="text-xs text-slate-400 dark:text-slate-500">Телефон для физических лиц</span>
+                                                </div>
+                                            </li>
+                                            <li className="flex items-start gap-3 text-slate-600 dark:text-slate-400">
+                                                <Phone size={16} className="mt-1 shrink-0 text-emerald-600 dark:text-emerald-400" />
+                                                <div className="flex flex-col">
+                                                    <a href="tel:+78442553559" className="hover:text-emerald-600 dark:hover:text-emerald-400 font-medium">55-35-59</a>
+                                                    <span className="text-xs text-slate-400 dark:text-slate-500">Круглосуточная поддержка</span>
                                                 </div>
                                             </li>
                                             <li className="flex items-start gap-3 text-slate-600 dark:text-slate-400">
@@ -2839,7 +2387,7 @@
                                             <Cookie size={22} className="text-emerald-500 dark:text-emerald-400" />
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-slate-800 dark:text-white mb-1.5 text-sm">Мы используем cookie</h4>
+                                            <h4 className="font-bold text-slate-800 dark:text-white mb-1.5 text-sm">Мы используем файлы cookie</h4>
                                             <p className="text-xs text-slate-600 dark:text-slate-300 mb-3 leading-relaxed">
                                                 Для корректной работы сайта и анализа трафика. Продолжая, вы соглашаетесь с нашей <button onClick={() => setActiveDoc('privacy')} className="text-emerald-600 dark:text-emerald-400 hover:underline">политикой</button>.
                                             </p>
@@ -2868,3 +2416,4 @@
     </script>
 </body>
 </html>
+

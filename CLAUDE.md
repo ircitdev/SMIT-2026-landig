@@ -34,7 +34,7 @@ ssh root@31.44.7.144 "chmod 755 /var/www/smit34.ru/index.html && chown smit34ftp
 | `GlassCard` | ~440 | Переиспользуемая карточка с glassmorphism |
 | `Badge` | ~473 | Бейдж-тег |
 | `renderNoticeBlocks()` | ~480 | Рендер блоков модального окна из JSON |
-| `AIWidget` | ~569 | Чат + голосовой ассистент (плавающая кнопка) |
+| `AIWidget` | ~578 | Чат + голосовой ассистент (плавающая кнопка) |
 | `App` | ~1205 | Основной компонент страницы |
 
 ### AI-виджет (`AIWidget`)
@@ -43,6 +43,20 @@ ssh root@31.44.7.144 "chmod 755 /var/www/smit34.ru/index.html && chown smit34ftp
 - **Relay:** после голосовой сессии транскрипт релеится в AIDA через `/chat` для создания лида
 - **API ключ Gemini:** `AIzaSyDlnPbUWTe-ZVYiaTrZ7zayE7QMP4-Dha4` (строка ~518)
 - **sessionId** генерируется при монтировании, prefix `widget_` для relay сессий
+- **Режимы:** переключение Чат/Голос, голосовая диктовка в текстовое поле
+- **Relay логика:** умный парсинг имени, телефона, адреса, тарифа из транскрипта (14 шагов диалога)
+
+### Секция "Новости и события" (News)
+- **Данные:** массив `allNews` (строки ~1237-1436) с 6 новостями
+- **Структура новости:** `{id, date, category, categoryColor, title, excerpt, content(HTML), image, link/action}`
+- **Рендеринг:** динамический `.slice(0, visibleNewsCount).map()` (строка ~2330)
+- **Модальное окно:** NEWS MODAL (строки ~2768-2850) с полным контентом
+  - Изображение в заголовке с градиентом overlay
+  - HTML контент через `dangerouslySetInnerHTML`
+  - Закрытие по backdrop/X, responsive дизайн
+- **Подгрузка:** кнопка "Показать ещё" загружает +3 новости (строки ~2443-2450)
+- **Изображения:** `https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/news/news[1-3].jpg`
+- **Дизайн:** timeline с пульсирующими точками, glassmorphism карточки, glare/glow эффекты
 
 ### Модальное окно объявлений
 - Конфиг загружается с: `https://aida.smit34.ru/modal-config`
