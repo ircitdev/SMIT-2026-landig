@@ -566,7 +566,8 @@
                 const [showPricesSidebar, setShowPricesSidebar] = useState(false);
                 const [currentLicenseIndex, setCurrentLicenseIndex] = useState(0);
                 const [showCookieConsent, setShowCookieConsent] = useState(false);
-                const [checkResultModal, setCheckResultModal] = useState(false);
+                const [addressCheckResult, setAddressCheckResult] = useState(null);
+                const [isCheckingAddress, setIsCheckingAddress] = useState(false);
                 const [showNewsModal, setShowNewsModal] = useState(false);
                 const [selectedNews, setSelectedNews] = useState(null);
                 const [visibleNewsCount, setVisibleNewsCount] = useState(3);
@@ -619,50 +620,56 @@
                 const [addressQuery, setAddressQuery] = useState('');
                 const [addressSuggestions, setAddressSuggestions] = useState([]);
                 const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
-                
-                const mockAddresses = [
-                    "г. Волгоград, ул. 40 лет ВЛКСМ",
-                    "г. Волгоград, пр-кт Героев Сталинграда",
-                    "г. Волгоград, ул. Удмуртская",
-                    "г. Волгоград, б-р Энгельса",
-                    "г. Волгоград, ул. Остравская",
-                    "г. Волгоград, ул. Пролетарская",
-                    "г. Волгоград, ул. Изобильная",
-                    "г. Волгоград, ул. Гражданская",
-                    "г. Волгоград, ул. Довженко",
-                    "г. Волгоград, ул. Фадеева",
-                    "г. Волгоград, ул. Бахтурова",
-                    "г. Волгоград, ул. Вучетича",
-                    "г. Волгоград, ул. Российская"
-                ];
+                const [selectedAddressId, setSelectedAddressId] = useState(null);
+                const debounceTimerRef = useRef(null);
 
                 const handleAddressChange = (e) => {
                     const value = e.target.value;
                     setAddressQuery(value);
-                    if (value.length > 0) {
-                        const filtered = mockAddresses.filter(addr =>
-                            addr.toLowerCase().includes(value.toLowerCase())
-                        );
-                        setAddressSuggestions(filtered);
-                        setIsSuggestionsOpen(true);
-                    } else {
-                        setAddressSuggestions([]);
-                        setIsSuggestionsOpen(false);
-                    }
+                    setSelectedAddressId(null);
+                    setAddressCheckResult(null);
+                    if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+                    if (value.length < 2) { setAddressSuggestions([]); setIsSuggestionsOpen(false); return; }
+                    debounceTimerRef.current = setTimeout(() => {
+                        fetch(`https://testbill.smit34.ru/api/address/suggest/?q=${encodeURIComponent(value)}`)
+                            .then(r => r.json())
+                            .then(data => { setAddressSuggestions(data.results || []); setIsSuggestionsOpen(data.results && data.results.length > 0); })
+                            .catch(() => { setAddressSuggestions([]); setIsSuggestionsOpen(false); });
+                    }, 300);
                 };
 
-                const handleSelectAddress = (addr) => {
-                    setAddressQuery(addr);
+                const handleSelectAddress = (item) => {
+                    setAddressQuery(item.address);
+                    setSelectedAddressId(item.id);
+                    setAddressSuggestions([]);
                     setIsSuggestionsOpen(false);
                 };
 
                 const handleCheckAddress = () => {
-                    if (addressQuery.trim().length > 0) {
-                        trackGoal('check_address');
-                        window.openAIWidget && window.openAIWidget(`Привет, я хочу подключить интернет по адресу: ${addressQuery.trim()}`);
-                    } else {
-                        alert("Пожалуйста, введите адрес.");
-                    }
+                    if (!addressQuery.trim()) return;
+                    trackGoal('check_address');
+                    setIsCheckingAddress(true);
+                    setAddressCheckResult(null);
+                    const params = selectedAddressId
+                        ? `id=${selectedAddressId}`
+                        : `q=${encodeURIComponent(addressQuery.trim())}`;
+                    fetch(`https://testbill.smit34.ru/api/address/check/?${params}`)
+                        .then(r => r.json())
+                        .then(data => {
+                            setAddressCheckResult(data);
+                            setIsCheckingAddress(false);
+                            if (data.status === 'connected' || data.status === 'coverage') {
+                                window.openAIWidget && window.openAIWidget(
+                                    `Привет, я хочу подключить интернет по адресу: ${data.address || addressQuery.trim()}`
+                                );
+                            }
+                        })
+                        .catch(() => {
+                            setIsCheckingAddress(false);
+                            window.openAIWidget && window.openAIWidget(
+                                `Привет, я хочу подключить интернет по адресу: ${addressQuery.trim()}`
+                            );
+                        });
                 };
                 
                 const licenses = [
@@ -1201,13 +1208,13 @@
                                                 {isSuggestionsOpen && addressSuggestions.length > 0 && (
                                                     <div className="absolute top-full left-0 w-full bg-white dark:bg-slate-800 rounded-xl shadow-xl mt-2 border border-slate-100 dark:border-slate-700 overflow-hidden z-[60] animate-in fade-in duration-200">
                                                         <ul>
-                                                            {addressSuggestions.map((addr, idx) => (
-                                                                <li 
-                                                                    key={idx}
+                                                            {addressSuggestions.map((item) => (
+                                                                <li
+                                                                    key={item.id}
                                                                     className="px-4 py-2 hover:bg-emerald-50 dark:hover:bg-slate-700 cursor-pointer text-slate-600 dark:text-slate-300 text-sm transition-colors border-b border-slate-50 dark:border-slate-700 last:border-0"
-                                                                    onClick={() => handleSelectAddress(addr)}
+                                                                    onClick={() => handleSelectAddress(item)}
                                                                 >
-                                                                    {addr}
+                                                                    {item.address}
                                                                 </li>
                                                             ))}
                                                         </ul>
@@ -1215,9 +1222,23 @@
                                                 )}
                                             </div>
                                             <Button primary className="w-full md:w-auto whitespace-nowrap justify-center" onClick={handleCheckAddress}>
-                                                Проверить <span className="hidden md:inline">возможность</span>
+                                                {isCheckingAddress
+                                                    ? <><Loader2 size={16} className="animate-spin mr-2" />Проверяем...</>
+                                                    : <>Проверить <span className="hidden md:inline">возможность</span></>
+                                                }
                                             </Button>
                                         </div>
+                                        {addressCheckResult && (
+                                            <div className={`mt-3 px-4 py-2.5 rounded-xl text-sm font-medium flex items-center gap-2 animate-in fade-in duration-300 ${
+                                                addressCheckResult.status === 'connected' ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300'
+                                                : addressCheckResult.status === 'coverage' ? 'bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300'
+                                                : 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300'
+                                            }`}>
+                                                {addressCheckResult.status === 'connected' && `✅ Подключение доступно! Уже подключено: ${addressCheckResult.abonent_count} абон.`}
+                                                {addressCheckResult.status === 'coverage' && '📍 Адрес в зоне покрытия — вы будете первым!'}
+                                                {addressCheckResult.status === 'unknown' && '❓ Адрес не найден — оставьте заявку в чате'}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                                 
@@ -1237,32 +1258,6 @@
                             </div>
                         </section>
 
-                        {/* CHECK RESULT MODAL */}
-                        {checkResultModal && (
-                            <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-300">
-                                <GlassCard className="max-w-lg w-full bg-white dark:bg-slate-900 relative p-8">
-                                    <button 
-                                        onClick={() => setCheckResultModal(false)}
-                                        className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
-                                    >
-                                        <X size={24} />
-                                    </button>
-                                    <div className="text-center">
-                                         <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
-                                            <Check size={32} className="text-emerald-600 dark:text-emerald-400" />
-                                        </div>
-                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Техническая возможность есть!</h3>
-                                        <p className="text-slate-600 dark:text-slate-300 mb-6">
-                                            По адресу: <br/>
-                                            <span className="font-bold text-slate-800 dark:text-white">{addressQuery}</span>
-                                        </p>
-                                        <Button primary className="w-full justify-center" onClick={() => window.open('https://bill.smit34.ru', '_blank')}>
-                                            Подключить интернет
-                                        </Button>
-                                    </div>
-                                </GlassCard>
-                            </div>
-                        )}
 
                         {/* TARIFFS SECTION */}
                         <section id="tariffs" className="py-20 px-4 gsap-section">
