@@ -18,6 +18,7 @@
     <meta name="twitter:image" content="https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/ogimage.jpg">
 
     <title>СМИТ — Интернет-провайдер будущего</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%235BA89D'/><text x='16' y='23' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='22' fill='%23fff'>C</text></svg>" type="image/svg+xml">
     
     <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -53,7 +54,20 @@
     
     <!-- Подключение Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
+    <!-- fix 2026-06-17: classic JSX-runtime + modules:false, иначе Babel вставляет
+         import {jsx} from "react/jsx-runtime" → "Cannot use import statement outside a module"
+         → aida-widget.js не выполняется → <AIWidget/> роняет весь рендер (белый сайт). -->
+    <script>
+      if (window.Babel && Babel.registerPreset) {
+        Babel.registerPreset('smit-classic', {
+          presets: [
+            [Babel.availablePresets['env'], { modules: false }],
+            [Babel.availablePresets['react'], { runtime: 'classic' }]
+          ]
+        });
+      }
+    </script>
+
     <!-- Подключение GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -143,6 +157,10 @@
         @keyframes slideInFromRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
         .glass-text { text-shadow: 0 2px 10px rgba(16, 185, 129, 0.1); }
+        .addr-dropdown::-webkit-scrollbar { width: 4px; }
+        .addr-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .addr-dropdown::-webkit-scrollbar-thumb { background: rgba(16, 185, 129, 0.45); border-radius: 10px; }
+        .addr-dropdown::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.75); }
 
         /* Logo hover animation */
         .logo-hover {
@@ -200,10 +218,14 @@
     <div id="root"></div>
     <div id="error-display"></div>
 
-    <!-- AI Widget (отдельный файл) -->
-    <script type="text/babel" data-presets="env,react" src="aida-widget.js?v=20260303b"></script>
+    <!-- AI Widget: новый smit-ai-widget (rbill, Gemini 2.5 Flash + голос Zephyr).
+         Заменяет aida-widget.js. Заглушка window.AIWidget — чтобы <AIWidget/>
+         внутри React-App не ронял рендер; сам виджет рисует свою кнопку. -->
+    <script>window.AIWidget = function () { return null; };</script>
+    <script src="https://rbill.smit34.ru/static/js/smit-ai-widget.js"
+            data-api="https://rbill.smit34.ru" defer></script>
 
-    <script type="text/babel" data-presets="env,react">
+    <script type="text/babel" data-presets="smit-classic">
         try {
             const { useState, useEffect, useRef, useMemo } = React;
 
@@ -586,6 +608,9 @@
                     if (sessionStorage.getItem('smit_voice_greeted')) return;
                     const timer = setTimeout(() => {
                         if (window.openAIWidget) {
+                            const el = document.activeElement;
+                            const isFormFocused = el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT');
+                            if (isFormFocused) return;
                             sessionStorage.setItem('smit_voice_greeted', '1');
                             window.openAIWidget(null, { voice: true, autoConnect: true });
                         }
@@ -622,6 +647,13 @@
                 const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
                 const [selectedAddressId, setSelectedAddressId] = useState(null);
                 const debounceTimerRef = useRef(null);
+                const addressInputRef = useRef(null);
+
+                const getDisplayAddress = (item) => {
+                    if (!item.city) return item.address;
+                    if (item.address.toLowerCase().includes(item.city.toLowerCase())) return item.address;
+                    return `${item.city}, ${item.address}`;
+                };
 
                 const handleAddressChange = (e) => {
                     const value = e.target.value;
@@ -638,11 +670,34 @@
                     }, 300);
                 };
 
+                const enrichWithNominatim = (searchText, onSuccess) => {
+                    const q = encodeURIComponent(searchText + ', Волгоградская область, Россия');
+                    fetch(`https://nominatim.openstreetmap.org/search?q=${q}&format=json&addressdetails=1&limit=1&accept-language=ru&countrycodes=ru`)
+                        .then(r => r.json())
+                        .then(results => {
+                            if (!results || !results[0] || !results[0].address) return;
+                            const a = results[0].address;
+                            const postcode = a.postcode || '';
+                            if (!postcode) return; // без индекса не обогащаем
+                            const state = (a.state || '').replace(/\s*область$/i, ' обл').trim();
+                            const county = (a.county || '').replace(/\s*район$/i, ' р-н').trim();
+                            const settlement = a.city || a.town || a.village || a.hamlet || '';
+                            const settlePfx = a.city || a.town ? 'г ' : a.village ? 'с ' : a.hamlet ? 'д ' : '';
+                            const road = a.road || '';
+                            const house = a.house_number ? 'д ' + a.house_number : '';
+                            const parts = [postcode, state, county, settlement ? settlePfx + settlement : '', road, house].filter(Boolean);
+                            if (parts.length >= 3) onSuccess(parts.join(', '));
+                        })
+                        .catch(() => {});
+                };
+
                 const handleSelectAddress = (item) => {
-                    setAddressQuery(item.address);
+                    const display = getDisplayAddress(item);
+                    setAddressQuery(display);
                     setSelectedAddressId(item.id);
                     setAddressSuggestions([]);
                     setIsSuggestionsOpen(false);
+                    enrichWithNominatim(display, (full) => setAddressQuery(full));
                 };
 
                 const handleCheckAddress = () => {
@@ -659,9 +714,11 @@
                             setAddressCheckResult(data);
                             setIsCheckingAddress(false);
                             if (data.status === 'connected' || data.status === 'coverage') {
-                                window.openAIWidget && window.openAIWidget(
-                                    `Привет, я хочу подключить интернет по адресу: ${data.address || addressQuery.trim()}`
-                                );
+                                setTimeout(() => {
+                                    window.openAIWidget && window.openAIWidget(
+                                        `Привет, я хочу подключить интернет по адресу: ${data.address || addressQuery.trim()}`
+                                    );
+                                }, 800);
                             }
                         })
                         .catch(() => {
@@ -671,7 +728,9 @@
                             );
                         });
                 };
-                
+
+
+
                 const licenses = [
                     'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/license1.jpg',
                     'https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/license2.jpg'
@@ -1176,7 +1235,7 @@
                         )}
 
                         {/* HERO SECTION */}
-                        <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-4 overflow-hidden gsap-section">
+                        <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-4 gsap-section" style={{overflow: 'visible'}}>
                             <div className="container mx-auto max-w-6xl relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                                 <div className="max-w-2xl">
                                     <Badge>Новая Эра Технологий</Badge>
@@ -1194,29 +1253,34 @@
 
                                     <div ref={checkBlockRef} style={{opacity: 0}} className="glass-panel p-2 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-white/50 dark:border-slate-700/50 shadow-lg inline-flex flex-col relative w-full md:w-auto">
                                         <div className="flex flex-col md:flex-row gap-2 w-full">
-                                            <div className="relative w-full md:w-80">
-                                                <input 
-                                                    type="text" 
-                                                    placeholder="Введите ваш адрес..." 
+                                            <div className="relative w-full md:w-80" style={{zIndex: 99999}}>
+                                                <input
+                                                    ref={addressInputRef}
+                                                    type="text"
+                                                    placeholder="Введите ваш адрес..."
                                                     className="bg-transparent px-4 py-3 outline-none text-slate-800 dark:text-white placeholder:text-slate-400 w-full"
                                                     value={addressQuery}
                                                     onChange={handleAddressChange}
                                                     onFocus={() => { if(addressSuggestions.length > 0) setIsSuggestionsOpen(true); }}
-                                                    onBlur={() => setTimeout(() => setIsSuggestionsOpen(false), 200)}
+                                                    onBlur={() => setTimeout(() => setIsSuggestionsOpen(false), 150)}
                                                 />
-                                                {/* Autocomplete Dropdown - Z-Index Increased */}
+                                                {/* Autocomplete Dropdown */}
                                                 {isSuggestionsOpen && addressSuggestions.length > 0 && (
-                                                    <div className="absolute top-full left-0 w-full bg-white dark:bg-slate-800 rounded-xl shadow-xl mt-2 border border-slate-100 dark:border-slate-700 overflow-hidden z-[60] animate-in fade-in duration-200">
+                                                    <div className="addr-dropdown absolute bottom-full left-0 right-0 mb-1 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm rounded-xl shadow-2xl border border-slate-200/80 dark:border-slate-600/50 overflow-y-auto max-h-64" style={{zIndex: 99999}}>
                                                         <ul>
-                                                            {addressSuggestions.map((item) => (
-                                                                <li
-                                                                    key={item.id}
-                                                                    className="px-4 py-2 hover:bg-emerald-50 dark:hover:bg-slate-700 cursor-pointer text-slate-600 dark:text-slate-300 text-sm transition-colors border-b border-slate-50 dark:border-slate-700 last:border-0"
-                                                                    onClick={() => handleSelectAddress(item)}
-                                                                >
-                                                                    {item.address}
-                                                                </li>
-                                                            ))}
+                                                            {addressSuggestions.map((item) => {
+                                                                const hasCity = item.city && !item.address.toLowerCase().includes(item.city.toLowerCase());
+                                                                return (
+                                                                    <li
+                                                                        key={item.id}
+                                                                        className="px-4 py-2.5 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 cursor-pointer text-sm transition-colors border-b border-slate-100/60 dark:border-slate-700/50 last:border-0"
+                                                                        onMouseDown={(e) => { e.preventDefault(); handleSelectAddress(item); }}
+                                                                    >
+                                                                        {hasCity && <span className="text-emerald-600 dark:text-emerald-400 font-medium">{item.city}, </span>}
+                                                                        <span className="text-slate-700 dark:text-slate-200">{item.address}</span>
+                                                                    </li>
+                                                                );
+                                                            })}
                                                         </ul>
                                                     </div>
                                                 )}
