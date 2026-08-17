@@ -1659,7 +1659,7 @@
                                         <a href="tel:+79375551122" className="text-sm font-bold text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">+7 (937) 555-11-22</a>
                                         <a href="tel:+78442553559" className="text-xs text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-1"><Phone size={10} />55-35-59</a>
                                     </div>
-                                    <a href="#" className="p-2 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-full transition-colors" title="Быстрая оплата" onClick={() => setActiveService('payment')}>
+                                    <a href="#" className="p-2 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-full transition-colors" title="Быстрая оплата" onClick={() => { trackGoal('open_payment'); setActiveService('payment'); }}>
                                         <CreditCard size={20} />
                                     </a>
                                     <Button primary className="!px-4 !py-2 !rounded-lg text-sm" onClick={() => { trackGoal('open_cabinet'); window.open('https://lk.smit34.ru/', '_blank'); }}>
@@ -2002,7 +2002,7 @@
                                                      <span className="text-sm text-slate-400 block mb-1">Отдел по работе с юр. лицами</span>
                                                      <a href="tel:554035" className="text-2xl font-bold hover:text-emerald-400 transition-colors">55-40-35</a>
                                                  </div>
-                                                 <Button primary className="w-full sm:w-auto ml-auto" onClick={() => window.openAIWidget && window.openAIWidget('Привет, я хочу подключить интернет для бизнеса, расскажи какие условия?')}>
+                                                 <Button primary className="w-full sm:w-auto ml-auto" onClick={() => { trackGoal('click_ai_business'); window.openAIWidget && window.openAIWidget('Привет, я хочу подключить интернет для бизнеса, расскажи какие условия?'); }}>
                                                      Подключить офис
                                                  </Button>
                                              </div>
@@ -2025,7 +2025,7 @@
                                         className="gsap-card group cursor-pointer hover:border-emerald-200 dark:hover:border-emerald-700" 
                                         animateIn 
                                         style={{animationDelay: '0s'}}
-                                        onClick={() => setActiveService('tv')}
+                                        onClick={() => { trackGoal('open_service_tv'); setActiveService('tv'); }}
                                     >
                                         <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                             <Monitor size={24} />
@@ -2039,7 +2039,7 @@
                                         className="gsap-card group cursor-pointer hover:border-emerald-200 dark:hover:border-emerald-700" 
                                         animateIn 
                                         style={{animationDelay: '0.1s'}}
-                                        onClick={() => setActiveService('cctv')}
+                                        onClick={() => { trackGoal('open_service_cctv'); setActiveService('cctv'); }}
                                     >
                                         <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                             <Shield size={24} />
@@ -2053,7 +2053,7 @@
                                         className="gsap-card group cursor-pointer hover:border-emerald-200 dark:hover:border-emerald-700" 
                                         animateIn 
                                         style={{animationDelay: '0.2s'}}
-                                        onClick={() => setActiveService('pc')}
+                                        onClick={() => { trackGoal('open_service_pc'); setActiveService('pc'); }}
                                     >
                                         <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                             <Zap size={24} />
@@ -2098,7 +2098,7 @@
                                                                     </div>
                                                                     <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{news.title}</h3>
                                                                     <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">{news.excerpt}</p>
-                                                                    <button onClick={() => { setSelectedNews(news); setShowNewsModal(true); }} className="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-semibold group-hover:gap-3 transition-all">
+                                                                    <button onClick={() => { trackGoal('open_news'); setSelectedNews(news); setShowNewsModal(true); }} className="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-semibold group-hover:gap-3 transition-all">
                                                                         Подробнее <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                                                     </button>
                                                                 </div>
@@ -2111,7 +2111,7 @@
                                                                 </div>
                                                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{news.title}</h3>
                                                                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">{news.excerpt}</p>
-                                                                <button onClick={() => { setSelectedNews(news); setShowNewsModal(true); }} className="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-semibold group-hover:gap-3 transition-all">
+                                                                <button onClick={() => { trackGoal('open_news'); setSelectedNews(news); setShowNewsModal(true); }} className="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-semibold group-hover:gap-3 transition-all">
                                                                     Узнать больше <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                                                 </button>
                                                             </div>
@@ -2222,7 +2222,7 @@
                                         <div className="grid sm:grid-cols-2 gap-4 mb-10">
                                             <button 
                                                 className="flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl transition-colors text-left border border-white/10"
-                                                onClick={() => setShowSpeedtestModal(true)}
+                                                onClick={() => { trackGoal('open_speedtest'); setShowSpeedtestModal(true); }}
                                             >
                                                 <div className="p-2 bg-emerald-500 rounded-lg"><Zap size={20} /></div>
                                                 <div>
@@ -2232,7 +2232,7 @@
                                             </button>
                                             <button 
                                                 className="flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl transition-colors text-left border border-white/10"
-                                                onClick={() => setActiveService('documents')}
+                                                onClick={() => { trackGoal('open_documents'); setActiveService('documents'); }}
                                             >
                                                 <div className="p-2 bg-teal-500 rounded-lg"><FileText size={20} /></div>
                                                 <div>
@@ -2242,7 +2242,7 @@
                                             </button>
                                             <button 
                                                 className="flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl transition-colors text-left border border-white/10"
-                                                onClick={() => setActiveService('instructions')}
+                                                onClick={() => { trackGoal('open_instructions'); setActiveService('instructions'); }}
                                             >
                                                 <div className="p-2 bg-orange-500 rounded-lg"><Settings size={20} /></div>
                                                 <div>
@@ -2251,7 +2251,7 @@
                                             </button>
                                             <button
                                                 className="flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl transition-colors text-left border border-white/10"
-                                                onClick={() => setActiveService('payment')}
+                                                onClick={() => { trackGoal('open_payment'); setActiveService('payment'); }}
                                             >
                                                 <div className="p-2 bg-purple-500 rounded-lg"><CreditCard size={20} /></div>
                                                 <div>
@@ -2261,7 +2261,7 @@
                                             </button>
                                             <button
                                                 className="flex items-center gap-3 p-4 bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 rounded-xl transition-all text-left border border-amber-400/30 sm:col-span-2"
-                                                onClick={() => setShowPricesSidebar(true)}
+                                                onClick={() => { trackGoal('open_pricelist'); setShowPricesSidebar(true); }}
                                             >
                                                 <div className="p-2 bg-amber-500 rounded-lg"><ClipboardList size={20} /></div>
                                                 <div>
@@ -2280,7 +2280,7 @@
                                                 </div>
                                                 <Button 
                                                     className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/30 hover:scale-105 border-none whitespace-nowrap"
-                                                    onClick={() => window.openAIWidget && window.openAIWidget()}
+                                                    onClick={() => { trackGoal('click_ai'); window.openAIWidget && window.openAIWidget(); }}
                                                 >
                                                     <Bot size={20} /> Спросить у помощника
                                                 </Button>
@@ -2329,7 +2329,7 @@
                         </section>
 
                         {/* ABOUT & MAP */}
-                        <section className="pt-20 pb-48 px-4 gsap-section relative">
+                        <section id="about" className="pt-20 pb-48 px-4 gsap-section relative">
                             {/* Фон: видео во всю ширину (пропорция исходника 1280×704) + растушёвка краёв.
                                  Обёртка задаёт единую геометрию, поэтому градиент точно совпадает с кадром.
                                  Смещение вниз выводит нижнюю кромку видео к нижней линии футера.
@@ -2379,7 +2379,7 @@
                                     </div>
                                     <div 
                                         className="h-80 bg-slate-200 dark:bg-slate-700 rounded-3xl overflow-hidden relative shadow-inner cursor-pointer group"
-                                        onClick={() => setShowMapModal(true)}
+                                        onClick={() => { trackGoal('open_covermap'); setShowMapModal(true); }}
                                     >
                                         {/* Background Image */}
                                         <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{backgroundImage: "url('https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/map.png')"}}></div>
@@ -2575,7 +2575,7 @@
                         )}
 
                         {/* FOOTER */}
-                        <footer className="relative z-10 -mt-32 pt-16 pb-8 text-sm animate-in fade-in duration-700 fill-mode-backwards" style={{animationDelay: '1.2s'}}>
+                        <footer id="contacts" className="relative z-10 -mt-32 pt-16 pb-8 text-sm animate-in fade-in duration-700 fill-mode-backwards" style={{animationDelay: '1.2s'}}>
                             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-50/75 to-slate-50 dark:via-slate-900/75 dark:to-slate-900 pointer-events-none"></div>
                             <div className="container mx-auto max-w-6xl px-4 relative z-10">
                                 {/* Мобильный порядок: кнопка кабинета — самое первое действие в футере */}
@@ -2681,7 +2681,7 @@
                                             <li>
                                                 <button 
                                                     className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-left"
-                                                    onClick={() => setActiveService('documents')}
+                                                    onClick={() => { trackGoal('open_documents'); setActiveService('documents'); }}
                                                 >
                                                     Регламенты и условия
                                                 </button>

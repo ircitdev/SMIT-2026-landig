@@ -123,8 +123,92 @@ for (const f of ['aida-widget.js']) {
   if (existsSync(path.join(ROOT, f))) cpSync(path.join(ROOT, f), path.join(DIST, f));
 }
 
+// --- 5. пререндер ---------------------------------------------------------
+// Контент рисует React, поэтому в исходном HTML у краулера было почти пусто.
+// Открываем собранную страницу в headless-Chrome, ждём отрисовки и кладём
+// готовую разметку внутрь #root. При загрузке React перерисует её поверх.
+if (!process.argv.includes('--no-prerender')) {
+  out = await prerender(out);
+  writeFileSync(path.join(DIST, 'index.html'), out);
+}
+
 const kb = (s) => Math.round(Buffer.byteLength(s) / 1024);
 console.log(`\nготово:
   js/${jsName}   ${kb(minified)} KB
   css/${cssName}  ${kb(css)} KB
   index.html      ${kb(out)} KB (было ${kb(html)} KB)`);
+
+async function prerender(htmlOut) {
+  const puppeteer = require('puppeteer-core');
+  const http = await import('node:http');
+  const { readFile } = await import('node:fs/promises');
+
+  // Локальный сервер: статика из dist, а данные (JSON) и картинки — с боевого сайта,
+  // чтобы пререндер содержал актуальные тарифы и новости.
+  const PORT = 8787;
+  const server = http.createServer(async (req, res) => {
+    const url = req.url.split('?')[0];
+    const local = path.join(DIST, url === '/' ? 'index.html' : url);
+    if (existsSync(local) && !local.endsWith(path.sep)) {
+      const type = local.endsWith('.js') ? 'text/javascript'
+        : local.endsWith('.css') ? 'text/css' : 'text/html; charset=utf-8';
+      res.writeHead(200, { 'Content-Type': type });
+      res.end(await readFile(local));
+      return;
+    }
+    try {
+      const upstream = await fetch('https://smit34.ru' + req.url);
+      const buf = Buffer.from(await upstream.arrayBuffer());
+      res.writeHead(upstream.status, { 'Content-Type': upstream.headers.get('content-type') || 'application/octet-stream' });
+      res.end(buf);
+    } catch {
+      res.writeHead(502).end();
+    }
+  });
+  await new Promise((r) => server.listen(PORT, '127.0.0.1', r));
+
+  const browser = await puppeteer.launch({
+    executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    headless: 'new',
+    args: ['--no-sandbox', '--disable-dev-shm-usage'],
+  });
+
+  try {
+    const page = await browser.newPage();
+    await page.setViewport({ width: 1440, height: 1200 });
+    await page.goto(`http://127.0.0.1:${PORT}/`, { waitUntil: 'networkidle2', timeout: 45000 });
+    // ждём, пока приедут данные и отрисуются карточки тарифов
+    await page.waitForFunction(
+      () => document.querySelectorAll('#tariffs .grid > *').length > 0,
+      { timeout: 30000 },
+    );
+    await new Promise((r) => setTimeout(r, 1500));
+
+    const rendered = await page.evaluate(() => {
+      // 1. внешний AI-виджет в разметку не пишем — он подключается своим скриптом
+      document.querySelectorAll('.smit-aiw-btn, .smit-aiw-panel').forEach((n) => n.remove());
+      // 2. снимаем inline-стили анимаций: иначе краулер увидит opacity:0
+      document.querySelectorAll('[style]').forEach((n) => {
+        const s = n.getAttribute('style') || '';
+        if (/opacity|visibility|transform|animation/.test(s)) {
+          const kept = s.split(';')
+            .filter((d) => d.trim() && !/^\s*(opacity|visibility|transform|animation[\w-]*)\s*:/.test(d))
+            .join(';');
+          kept ? n.setAttribute('style', kept) : n.removeAttribute('style');
+        }
+      });
+      return document.getElementById('root').innerHTML;
+    });
+
+    // без JS ссылки и кнопки бесполезны, но текст, заголовки и цены краулер увидит
+    const withContent = htmlOut.replace(
+      '<div id="root"></div>',
+      `<div id="root">${rendered}</div>`,
+    );
+    console.log(`  пререндер: ${Math.round(Buffer.byteLength(rendered) / 1024)} KB разметки в #root`);
+    return withContent;
+  } finally {
+    await browser.close();
+    server.close();
+  }
+}
