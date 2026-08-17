@@ -12,13 +12,40 @@
 
 ## Деплой
 
-```bash
-# Загрузить index.html на сервер
-scp "d:/DevTools/Database/2027smit/index.html" root@31.44.7.144:/var/www/smit34.ru/index.html
+⚠️ **С 2026-08-17 сайт собирается.** Заливать `index.html` напрямую нельзя — в продакшн-версии нет ни Babel, ни Tailwind CDN, они заменены готовыми `js/app.*.js` и `css/app.*.css`.
 
-# Права после загрузки
-ssh root@31.44.7.144 "chmod 755 /var/www/smit34.ru/index.html && chown smit34ftp:www-data /var/www/smit34.ru/index.html"
+```bash
+cd d:/DevTools/Database/2027smit
+bash deploy.sh          # сборка (node build.mjs) + выкладка index.html, js/, css/
 ```
+
+- **Править нужно `index.html`** — он остаётся источником правды (JSX + классы Tailwind).
+- `build.mjs` компилирует JSX через @babel/standalone → `dist/js/app.<hash>.js` (минификация esbuild)
+  и собирает Tailwind CLI → `dist/css/app.<hash>.css`. Хэш в имени = вечный кэш.
+- Инструменты сборки лежат в `d:/tmp/smitbuild` (npm: @babel/standalone, tailwindcss@3, esbuild).
+  Если папки нет: `cd d:/tmp/smitbuild && npm i @babel/standalone tailwindcss@3.4.17 esbuild`.
+- **Динамические классы Tailwind** (`bg-${news.categoryColor}-100` и т. п.) не видны сборщику —
+  они перечислены в `safelist` внутри `build.mjs`. Добавляете новый цвет категории — впишите его туда.
+- Бэкап дособорочной версии на сервере: `/var/www/smit34.ru/index_before_build_*.html`.
+
+Прочие файлы (JSON с данными, картинки) заливаются обычным scp:
+```bash
+scp tariffs.json root@31.44.7.144:/var/www/smit34.ru/tariffs.json
+ssh root@31.44.7.144 "chmod 644 /var/www/smit34.ru/tariffs.json && chown smit34ftp:www-data /var/www/smit34.ru/tariffs.json"
+```
+
+### Производительность (замеры после сборки)
+
+| | было | стало |
+|---|---|---|
+| FCP десктоп | 3128 мс | **724 мс** |
+| FCP мобильный (4× CPU throttle, Fast 3G) | 3548 мс | **768 мс** |
+| load мобильный | 4220 мс | **1024 мс** |
+| HTML | 207 КБ | 18 КБ + app.js 137 КБ + app.css 62 КБ |
+
+nginx (`/etc/nginx/sites-available/smit34.ru`): `webp/avif/mp4/webm` кэшируются 30 дней
+(`public, immutable`), `*.json` — `no-cache` (данные должны подхватываться сразу),
+`index.html` — `no-store`.
 
 ---
 
@@ -47,7 +74,7 @@ ssh root@31.44.7.144 "chmod 755 /var/www/smit34.ru/index.html && chown smit34ftp
 - **Relay логика:** умный парсинг имени, телефона, адреса, тарифа из транскрипта (14 шагов диалога)
 
 ### Секция "Новости и события" (News)
-- **Данные:** массив `allNews` (строки ~1237-1436) с 6 новостями
+- **Данные:** `news.json` рядом с index.html (грузится с cache-buster), состояние `allNews`
 - **Структура новости:** `{id, date, category, categoryColor, title, excerpt, content(HTML), image, link/action}`
 - **Рендеринг:** динамический `.slice(0, visibleNewsCount).map()` (строка ~2330)
 - **Модальное окно:** NEWS MODAL (строки ~2768-2850) с полным контентом
@@ -63,11 +90,36 @@ ssh root@31.44.7.144 "chmod 755 /var/www/smit34.ru/index.html && chown smit34ftp
 - Показывается через 5 сек после загрузки (если `enabled: true`)
 - Cookie `smit27_modal_shown` — защита от повторного показа
 - Управление: Telegram-бот (команда `/modal`) → `aida-cache-bot` сервис
+- ⚠️ В коде стоит жёсткое ограничение: не чаще **раза в 24 часа**
+  (`localStorage.smit_notice_last_shown`), независимо от `showOnEveryPageLoad` в конфиге бота
 
 ### Cookie consent
-- Показывается через 15 сек при первом визите (localStorage `smit_cookie_consent_time`)
-- Автоскрывается через 10 сек
-- Glassmorphism стиль
+- Показывается через 15 сек при первом визите, автоскрытие через 10 сек
+- Отметка `localStorage.smit_cookie_consent_time` ставится **в момент показа**,
+  а не только по клику «Принять» — иначе баннер возвращался бы при каждой загрузке
+
+### Прямые ссылки (SPA-маршруты)
+| URL | Действие |
+|---|---|
+| `/testspeed` | открывает замер скорости на вкладке «СмИТ» |
+| `/covermap` | открывает карту покрытия |
+
+Работают и как хеш (`#testspeed`, `#covermap`). На стороне nginx для них заданы
+отдельные `location` с отдачей `index.html`.
+
+### Медиа и анимации
+- **Обложки тарифов:** постер + зацикленное видео. Десктоп — по наведению,
+  мобильные — когда карточка занимает ≥55% экрана (IntersectionObserver).
+  Видео не грузится при `saveData` и на 2G. Отдельные файлы для светлой и тёмной темы
+  (`cover`/`video` и `coverDark`/`videoDark` в `tariffs.json`)
+- **Скролл-анимации:** GSAP ScrollTrigger, поэлементно (заголовки, текст, карточки, иллюстрации).
+  Секции целиком не анимируются. `ScrollTrigger.batch` для карточек, `once: true`,
+  `clearProps` после анимации, отключение при `prefers-reduced-motion`
+- **Кнопка AI-виджета:** появляется через 15 сек; на мобильных — только после ухода
+  с первого экрана (класс `aiw-visible` на `body`)
+- **Слои:** все оверлеи (меню, сайдбары, модалки) подняты выше AI-виджета,
+  у которого `z-index: 2147483000`
+- **Мобильные сайдбары:** новость выезжает слева, карта и замер скорости — справа
 
 ---
 

@@ -282,6 +282,7 @@ function AIWidget() {
     const [status, setStatus] = useState('idle');
     const [isAgentSpeaking, setIsAgentSpeaking] = useState(false);
     const [error, setError] = useState(null);
+    const [micError, setMicError] = useState(false);
 
     const audioContextRef = useRef(null);
     const inputContextRef = useRef(null);
@@ -433,6 +434,32 @@ function AIWidget() {
         setStatus('idle');
     };
 
+    // Понятные сообщения об ошибках доступа к микрофону.
+    // Возвращает { text, noMic } — noMic=true означает «нет/недоступен микрофон»
+    // и включает показ перечёркнутого микрофона на фоне.
+    const getMicErrorMessage = (err) => {
+        const name = err && err.name;
+        switch (name) {
+            case 'NotFoundError':
+            case 'DevicesNotFoundError':
+            case 'OverconstrainedError':
+                return { text: 'Микрофон не найден. Подключите микрофон или проверьте, что он включён в системе, и попробуйте снова.', noMic: true };
+            case 'NotAllowedError':
+            case 'PermissionDeniedError':
+            case 'SecurityError':
+                return { text: 'Нет доступа к микрофону. Разрешите использование микрофона в настройках браузера и попробуйте снова.', noMic: true };
+            case 'NotReadableError':
+            case 'TrackStartError':
+                return { text: 'Микрофон занят другим приложением. Закройте другие программы, использующие микрофон, и попробуйте снова.', noMic: true };
+            default:
+                // Нет mediaDevices (старый браузер / не HTTPS-контекст)
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                    return { text: 'Голосовой режим недоступен в этом браузере. Откройте сайт в современном браузере по защищённому соединению (https) либо воспользуйтесь чатом.', noMic: true };
+                }
+                return { text: 'Не удалось включить голосовой режим. Попробуйте ещё раз или воспользуйтесь чатом.', noMic: false };
+        }
+    };
+
     const connect = async () => {
         // Ждём загрузки SDK (до 5 секунд)
         let attempts = 0;
@@ -454,6 +481,7 @@ function AIWidget() {
         setStatus('connecting');
         setIsActive(true);
         setError(null);
+        setMicError(false);
         shouldReconnectRef.current = false;
 
         try {
@@ -759,7 +787,9 @@ function AIWidget() {
             cleanupResources();
             setIsActive(false);
             setStatus('error');
-            setError(err.name === 'NotAllowedError' ? 'Нет доступа к микрофону' : 'Ошибка: ' + err.message);
+            const info = getMicErrorMessage(err);
+            setError(info.text);
+            setMicError(info.noMic);
         }
     };
 
@@ -915,7 +945,7 @@ function AIWidget() {
     };
 
     // Icons from global scope
-    const { Bot, X, Phone, Mic, Square, Loader2, ArrowRight } = window._SmitIcons || {};
+    const { Bot, X, Phone, Mic, MicOff, Square, Loader2, ArrowRight } = window._SmitIcons || {};
 
     return (
         <div className="ai-widget-outer fixed bottom-6 right-6 z-[50] flex flex-col items-end pointer-events-none">
@@ -1037,9 +1067,23 @@ function AIWidget() {
                             <div className="flex-1 flex items-center justify-center">
                                 {status === 'idle' && <span className="text-slate-400 text-sm text-center px-6">Нажмите «Начать» — разговор появится здесь</span>}
                                 {status === 'error' && (
-                                    <div className="flex flex-col items-center gap-1 text-red-500 px-4 text-center">
-                                        <span className="text-xs font-bold uppercase">Ошибка</span>
-                                        <span className="text-sm">{error}</span>
+                                    <div className="relative flex flex-col items-center justify-center gap-3 px-6 text-center w-full">
+                                        {micError && MicOff && (
+                                            <MicOff
+                                                size={120}
+                                                strokeWidth={1.5}
+                                                className="absolute -top-2 text-slate-400/15 dark:text-slate-500/15 pointer-events-none"
+                                            />
+                                        )}
+                                        <div className="relative z-10 flex flex-col items-center gap-2">
+                                            {micError && MicOff && (
+                                                <MicOff size={36} strokeWidth={1.5} className="text-slate-400 dark:text-slate-500" />
+                                            )}
+                                            <span className="text-xs font-bold uppercase tracking-widest text-red-500">
+                                                {micError ? 'Микрофон недоступен' : 'Ошибка'}
+                                            </span>
+                                            <span className="text-sm text-slate-600 dark:text-slate-300 leading-snug max-w-[280px]">{error}</span>
+                                        </div>
                                     </div>
                                 )}
                             </div>
