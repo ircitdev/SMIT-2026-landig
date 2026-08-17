@@ -98,6 +98,49 @@ nginx (`/etc/nginx/sites-available/smit34.ru`): `webp/avif/mp4/webm` кэшир�
 - Отметка `localStorage.smit_cookie_consent_time` ставится **в момент показа**,
   а не только по клику «Принять» — иначе баннер возвращался бы при каждой загрузке
 
+### SEO
+
+| Что | Где |
+|---|---|
+| `robots.txt`, `sitemap.xml` | корень сайта, правятся вручную и заливаются по scp |
+| canonical, `meta robots`, geo-метки | `<head>` index.html |
+| JSON-LD | `WebSite` + `InternetServiceProvider`/`LocalBusiness`: адрес, ИНН, телефоны, часы работы |
+| Open Graph / Twitter | картинка `/images/og-image-2026-08.jpg` (1200×630) |
+| Верификация прав | `yandex_faab79665a981959.html`, `google082e623b3df5d9f3.html` в корне |
+
+⚠️ **Имя og-картинки содержит дату намеренно.** Соцсети кэшируют превью по URL —
+при замене баннера меняйте имя файла, иначе VK и Telegram продолжат отдавать старое.
+
+Разделы старого сайта склеены с главной 301-редиректами (настроено в nginx):
+`/news/` → `/#news`, `/services/` → `/#services`, `/help/` → `/#help`,
+`/company/` → `/#about`, `/contacts/` → `/#contacts`.
+
+### Цели Яндекс.Метрики
+
+Счётчик `105460811`. Событие отправляется хелпером `trackGoal(id)` (`ym(..., 'reachGoal', id)`),
+в Метрике цели заведены с типом «JavaScript-событие» и тем же идентификатором.
+
+| Цель | Событие |
+|---|---|
+| `check_address` | проверка адреса подключения |
+| `select_tariff` | «Подключить» на карточке тарифа |
+| `open_cabinet` | переход в личный кабинет |
+| `click_phone`, `click_phone_support` | клики по телефонам |
+| `click_ai`, `click_ai_business` | открытие AI-помощника |
+| `open_speedtest`, `open_covermap` | замер скорости, карта покрытия |
+| `open_pricelist` | прайс платных услуг |
+| `open_service_tv`, `open_service_cctv`, `open_service_pc` | услуги |
+| `open_payment`, `open_documents`, `open_instructions` | оплата, документы, инструкции |
+| `open_news` | открытие новости |
+
+Добавляете новую цель — заводите её в Метрике **с тем же идентификатором**, что в `trackGoal()`.
+Управлять целями можно через API: `https://api-metrika.yandex.net/management/v1/counter/105460811/goals`,
+заголовок `Authorization: OAuth <токен>`; токену нужны права `metrika:read` **и** `metrika:write`
+(права выдаются в момент выпуска токена — после изменения прав приложения токен надо перевыпустить).
+
+В счётчике остались 11 целей от старой версии сайта (`connect_tariff`, `view_tariffs`,
+`engaged_30sec` и другие) — код их больше не вызывает, но исторические отчёты к ним привязаны.
+
 ### Прямые ссылки (SPA-маршруты)
 | URL | Действие |
 |---|---|
