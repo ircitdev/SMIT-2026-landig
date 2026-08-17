@@ -1,23 +1,96 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="СМИТ — Интернет-провайдер будущего">
-    <meta property="og:description" content="Надёжный Интернет в Волгоградской области. Подключаем квартиры и частный сектор — оптика ГПОН и беспроводные решения.">
-    <meta property="og:image" content="https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/ogimage.jpg">
-    <meta property="og:url" content="https://smit34.ru">
+    <meta name="description" content="Современный интернет для дома и бизнеса в Волгограде и области. Оптика ГПОН и беспроводные решения, скорость до 200 Мбит/с, поддержка 24/7.">
+
+    <!-- Open Graph Meta Tags.
+         Имя картинки с меткой месяца: соцсети кэшируют превью по URL,
+         поэтому при обновлении баннера меняем имя файла, а не содержимое. -->
+    <meta property="og:site_name" content="СмИТ">
+    <meta property="og:title" content="СмИТ — современный интернет для дома и бизнеса">
+    <meta property="og:description" content="Оптика ГПОН и беспроводные решения в Волгограде и области. Стабильное соединение, скорость до 200 Мбит/с, оптика в дом и поддержка 24/7.">
+    <meta property="og:image" content="https://smit34.ru/images/og-image-2026-08.jpg">
+    <meta property="og:image:secure_url" content="https://smit34.ru/images/og-image-2026-08.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Робот-помощник СмИТ и надпись «Современный интернет для дома и бизнеса»">
+    <meta property="og:url" content="https://smit34.ru/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU">
-    
+
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="СМИТ — Интернет-провайдер будущего">
-    <meta name="twitter:description" content="Надёжный Интернет в Волгоградской области. Подключитесь сегодня!">
-    <meta name="twitter:image" content="https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/ogimage.jpg">
+    <meta name="twitter:title" content="СмИТ — современный интернет для дома и бизнеса">
+    <meta name="twitter:description" content="Оптика ГПОН и беспроводные решения в Волгограде и области. Скорость до 200 Мбит/с, поддержка 24/7.">
+    <meta name="twitter:image" content="https://smit34.ru/images/og-image-2026-08.jpg">
+    <meta name="twitter:image:alt" content="Робот-помощник СмИТ и надпись «Современный интернет для дома и бизнеса»">
 
-    <title>СМИТ — Интернет-провайдер будущего</title>
+    <title>Интернет-провайдер СмИТ в Волгограде — подключение интернета для дома и бизнеса</title>
+    <link rel="canonical" href="https://smit34.ru/">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="geo.region" content="RU-VGG">
+    <meta name="geo.placename" content="Волгоград">
+
+    <!-- Структурированные данные: организация-провайдер с адресом, телефонами и часами работы -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://smit34.ru/#website",
+          "url": "https://smit34.ru/",
+          "name": "СмИТ",
+          "inLanguage": "ru-RU",
+          "publisher": { "@id": "https://smit34.ru/#org" }
+        },
+        {
+          "@type": ["InternetServiceProvider", "LocalBusiness"],
+          "@id": "https://smit34.ru/#org",
+          "name": "СмИТ",
+          "legalName": "ООО «Смит»",
+          "url": "https://smit34.ru/",
+          "logo": "https://smit34.ru/images/og-image-2026-08.jpg",
+          "image": "https://smit34.ru/images/og-image-2026-08.jpg",
+          "description": "Интернет-провайдер в Волгограде и Волгоградской области: оптика ГПОН и беспроводные решения для дома и бизнеса, телевидение, видеонаблюдение, компьютерный сервис.",
+          "telephone": "+7-937-555-11-22",
+          "email": "ask@support.smit34.ru",
+          "taxID": "3461009378",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ул. 40 лет ВЛКСМ, д. 80, оф. 1",
+            "addressLocality": "Волгоград",
+            "addressRegion": "Волгоградская область",
+            "addressCountry": "RU"
+          },
+          "areaServed": [
+            { "@type": "City", "name": "Волгоград" },
+            { "@type": "AdministrativeArea", "name": "Волгоградская область" }
+          ],
+          "openingHoursSpecification": [{
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            "opens": "09:00",
+            "closes": "21:00"
+          }],
+          "contactPoint": [{
+            "@type": "ContactPoint",
+            "telephone": "+7-8442-55-35-59",
+            "contactType": "customer support",
+            "availableLanguage": "Russian",
+            "areaServed": "RU"
+          }],
+          "sameAs": [
+            "https://vk.com/smit34ru",
+            "https://t.me/internet_smit34"
+          ]
+        }
+      ]
+    }
+    </script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%235BA89D'/><text x='16' y='23' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='22' fill='%23fff'>C</text></svg>" type="image/svg+xml">
     
     <!-- Ранние подключения к внешним хостам: экономят ~100-200 мс на TLS-хендшейке -->
@@ -439,7 +512,37 @@
 
         ym(105460811, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/105460811" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/105460811" style="position:absolute; left:-9999px;" alt="" /></div>
+        <!-- Контент для клиентов без JavaScript и для краулеров, которые не выполняют скрипты -->
+        <div style="max-width:900px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.6">
+            <h1>Интернет-провайдер СмИТ в Волгограде</h1>
+            <p>Подключаем интернет для дома и бизнеса в Волгограде и Волгоградской области: оптика ГПОН и беспроводные решения, скорость до 200 Мбит/с, поддержка 24/7.</p>
+            <h2>Тарифы для дома</h2>
+            <ul>
+                <li>«Это просто» — 990 ₽/мес, 25 Мбит/с, беспроводное подключение</li>
+                <li>«Для тебя» — 890 ₽/мес, 50 Мбит/с, оптика ГПОН</li>
+                <li>«СмИТ» — 1049 ₽/мес, 100 Мбит/с, оптика ГПОН</li>
+                <li>«Без границ» — 1290 ₽/мес, 200 Мбит/с, оптика ГПОН</li>
+                <li>«Супер» — 1299 ₽/мес, до 50 Мбит/с, беспроводное подключение</li>
+            </ul>
+            <h2>Тарифы для бизнеса</h2>
+            <ul>
+                <li>«Старт» — 2990 ₽/мес, 10 Мбит/с</li>
+                <li>«Офис» — 4990 ₽/мес, 30 Мбит/с</li>
+                <li>«Бизнес» — 6790 ₽/мес, 50 Мбит/с</li>
+                <li>«Максимум» — 9990 ₽/мес, 100 Мбит/с</li>
+            </ul>
+            <h2>Услуги</h2>
+            <p>Интерактивное телевидение, облачное видеонаблюдение, компьютерный сервис и настройка оборудования. Подключение частного сектора — от 12 000 ₽.</p>
+            <h2>Контакты</h2>
+            <p>г. Волгоград, ул. 40 лет ВЛКСМ, д. 80, оф. 1<br>
+            Телефон: <a href="tel:+79375551122">+7 (937) 555-11-22</a>, круглосуточная поддержка <a href="tel:+78442553559">55-35-59</a><br>
+            Почта: <a href="mailto:ask@support.smit34.ru">ask@support.smit34.ru</a><br>
+            Режим работы: Пн–Вс 09:00–21:00</p>
+            <p><a href="/news/">Новости</a> · <a href="/services/">Услуги</a> · <a href="/help/">Помощь</a> · <a href="/company/">О компании</a> · <a href="/contacts/">Контакты</a></p>
+        </div>
+    </noscript>
     <!-- /Yandex.Metrika counter -->
     
     <div id="root"></div>
@@ -2195,11 +2298,11 @@
                                                             <Mail size={14} />
                                                             <a href="mailto:ask@support.smit34.ru" className="hover:text-emerald-400 transition-colors">ask@support.smit34.ru</a>
                                                         </div>
-                                                        <a href="https://t.me/smitsupport_bot" target="_blank" className="flex items-center gap-2 text-sky-400 hover:text-sky-300 transition-colors text-sm">
+                                                        <a href="https://t.me/smitsupport_bot" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sky-400 hover:text-sky-300 transition-colors text-sm">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                                                             Телеграм
                                                         </a>
-                                                        <a href="https://vk.com/im/convo/-214756373?entrypoint=list_all&rp=peer-214756373" target="_blank" className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-sm">
+                                                        <a href="https://vk.com/im/convo/-214756373?entrypoint=list_all&rp=peer-214756373" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-sm">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22.5h-5c-6.5 0-7.5-5-7.5-9s1-9 7.5-9h5c6.5 0 7.5 5 7.5 9s-1 9-7.5 9z"/><path d="M17.5 8c.5.5 1 2 1 4s-.5 3.5-1 4"/><path d="M14.5 12h-5"/></svg>
                                                             <span className="md:hidden">ВК</span><span className="hidden md:inline">Написать в ВК</span>
                                                         </a>
@@ -2495,19 +2598,19 @@
                                         <h4 className="font-semibold text-slate-900 dark:text-white mb-3 text-sm">Мы в соц.сетях</h4>
                                         <ul className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 md:block md:space-y-2 text-xs md:text-sm">
                                             <li>
-                                                <a href="https://vk.com/smit34ru" target="_blank" className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-2">
+                                                <a href="https://vk.com/smit34ru" target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-2">
                                                     <img src="https://storage.googleapis.com/uspeshnyy-projects/smit/robotnet.ru/vkontakte_circled.svg" width="16" height="16" alt="VK" style={{display:"inline-block"}} />
                                                     <span className="md:hidden">ВК</span><span className="hidden md:inline">Наша группа ВК</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://t.me/internet_smit34" target="_blank" className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-2">
+                                                <a href="https://t.me/internet_smit34" target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-2">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                                                     <span className="md:hidden">Телеграм</span><span className="hidden md:inline">Мы в Телеграм</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://gog.su/7GOG" target="_blank" className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-2">
+                                                <a href="https://gog.su/7GOG" target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-2">
                                                     <img src="https://storage.googleapis.com/uspeshnyy-projects/smit/smit34.ru/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_MAX.svg" width="16" height="16" alt="MAX" style={{display:"inline-block"}} />
                                                     <span className="md:hidden">MAX</span><span className="hidden md:inline">Наш канал в MAX</span>
                                                 </a>
@@ -2527,10 +2630,10 @@
 
                                         <h4 className="md:hidden font-semibold text-slate-900 dark:text-white mt-6 mb-3 text-sm">Поддержка через:</h4>
                                         <div className="flex gap-3 mt-0 md:mt-6">
-                                            <a href="https://vk.com/im/convo/-214756373?entrypoint=list_all&rp=peer-214756373" target="_blank" className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-colors flex items-center justify-center">
+                                            <a href="https://vk.com/im/convo/-214756373?entrypoint=list_all&rp=peer-214756373" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-colors flex items-center justify-center">
                                                 <img src="https://storage.googleapis.com/uspeshnyy-projects/smit/robotnet.ru/vkontakte_circled.svg" width="18" height="18" alt="VK" style={{display:"inline-block"}} />
                                             </a>
-                                            <a href="https://t.me/smitsupport_bot" target="_blank" className="w-8 h-8 bg-sky-100 dark:bg-sky-900/30 text-sky-500 dark:text-sky-400 rounded-full hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 dark:hover:text-white transition-colors flex items-center justify-center">
+                                            <a href="https://t.me/smitsupport_bot" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-sky-100 dark:bg-sky-900/30 text-sky-500 dark:text-sky-400 rounded-full hover:bg-sky-500 hover:text-white dark:hover:bg-sky-500 dark:hover:text-white transition-colors flex items-center justify-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                                             </a>
                                             <a href="mailto:ask@support.smit34.ru" className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 dark:hover:text-white transition-colors flex items-center justify-center">
@@ -2631,10 +2734,20 @@
                                     </div>
                                 </div>
 
-                                {/* Копирайт: на мобильных одной строкой в самом низу */}
-                                <p className="md:hidden text-center text-xs text-slate-500 dark:text-slate-400 pt-6 border-t border-slate-200/60 dark:border-slate-700/40 whitespace-nowrap">
-                                    © 2026 СмИТ. Все права защищены.
-                                </p>
+                                {/* Нижняя строка: копирайт (только мобильные) и авторство разработки */}
+                                <div className="pt-6 border-t border-slate-200/60 dark:border-slate-700/40 flex flex-col items-center gap-2 md:flex-row md:justify-end">
+                                    <p className="md:hidden text-center text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">
+                                        © 2026 СмИТ. Все права защищены.
+                                    </p>
+                                    <a
+                                        href="https://itc34.ru"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-xs text-slate-400 dark:text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                                    >
+                                        Создано в ITC
+                                    </a>
+                                </div>
                             </div>
                         </footer>
 
